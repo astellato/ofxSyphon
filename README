@@ -28,6 +28,8 @@ Instructions
 
 To add ofxSyphon to your project, you need to drag the ofxSyphon addon folder into your project (like any other OF add-on). Consult SyphonExample to see how ofxSyphon works.
 
+Remember to add a copy build phase to a new project that contains the Syphon framework.
+
 Credits
 
 Syphon for Open Frameworks - Tom Butterworth (bangnoise) and Anton Marini (vade) and Anthony Stellato (astellato).
