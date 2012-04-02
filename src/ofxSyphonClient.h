@@ -24,6 +24,9 @@ class ofxSyphonClient {
     
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);
+	
+	float getWidth();
+	float getHeight();
     
 	protected:
 	void* mClient;

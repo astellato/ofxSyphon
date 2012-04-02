@@ -1,0 +1,28 @@
+
+.svn/
+obj/
+bin/
+build/
+!data/
+ipch/
+
+# mac Finder index files
+.DS_*
+
+# mac apps
+*.app*
+
+# xcode user project files
+*.pbxuser
+*.perspectivev3
+xcuserdata
+*.mode1*v3
+
+# codeblocks project files
+*.depend
+*.layout
+
+# visual studio project files
+*.vcxproj.user
+*.suo
+*.sdf

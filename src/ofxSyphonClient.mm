@@ -135,9 +135,14 @@ void ofxSyphonClient::draw(float x, float y)
 	this->draw(x,y, mTex.texData.width, mTex.texData.height);
 }
 
+float ofxSyphonClient::getWidth()
+{
+	return mTex.texData.width;
+}
 
-
-
-
+float ofxSyphonClient::getHeight()
+{
+	return mTex.texData.height;
+}
 
 
