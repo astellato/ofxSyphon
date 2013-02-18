@@ -5,6 +5,7 @@ const int height = 600;
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	mDirectory.setup();
 	counter = 0;
 	ofSetCircleResolution(50);
 	
@@ -29,6 +30,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
+	mDirectory.update();
 	counter = counter + 0.033f;
 }
 

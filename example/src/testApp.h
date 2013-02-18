@@ -24,6 +24,8 @@ public:
 	ofxSyphonServer individualTextureSyphonServer;
 	
 	ofxSyphonClient mClient;
+	
+	ofxSyphonServerDirectory mDirectory;
 };
 
 #endif
