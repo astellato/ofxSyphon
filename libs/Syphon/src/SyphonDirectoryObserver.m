@@ -47,6 +47,7 @@
 }
 - (void)handleServerChange
 {
+
 	isServerChanged = YES;
 	for(NSDictionary* serverDescription in [[SyphonServerDirectory sharedDirectory] servers])
 	{
@@ -61,6 +62,8 @@
 }
 - (BOOL) hasServerChanges
 {
-	return isServerChanged;
+	BOOL chaged = isServerChanged;
+	isServerChanged = NO;
+	return chaged;
 }
 @end

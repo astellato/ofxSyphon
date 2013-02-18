@@ -7,15 +7,39 @@
 //
 
 #include "ofMain.h"
+class ofxSyphonServerDirectory;
+class ofxSyphonServerDirectoryEventArgs : public ofEventArgs {
+public:
+	ofxSyphonServerDirectory* directory;
+};
 
+class ofxSyphonServerDirectoryEvents {
+public:
+	ofEvent<ofxSyphonServerDirectoryEventArgs> directoryUpdated;
+};
+class ServerList
+{
+public:
+	ServerList(string _name, string _appName)
+	{
+		name = _name;
+		appName = _appName;
+	}
+	string name,appName;
+};
 class ofxSyphonServerDirectory {
 public:
 	ofxSyphonServerDirectory();
 	~ofxSyphonServerDirectory();
 	
     void setup ();
-	void update();
-protected:
+	ofxSyphonServerDirectoryEvents events;
+	vector<ServerList>serverList;
+private:
+	void update(ofEventArgs& args);
+	
 	bool bSetup;
 	void* serverDirectory;
+
 };
+
