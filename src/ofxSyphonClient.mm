@@ -38,35 +38,47 @@ void ofxSyphonClient::setup()
     [pool drain];
 }
 
-void ofxSyphonClient::setApplicationName(string appName)
+void ofxSyphonClient::setApplicationName(string _appName)
 {
     if(bSetup)
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-        NSString *name = [NSString stringWithCString:appName.c_str() encoding:[NSString defaultCStringEncoding]];
+        NSString *name = [NSString stringWithCString:_appName.c_str() encoding:[NSString defaultCStringEncoding]];
         
         [(SyphonNameboundClient*)mClient setAppName:name];
+        
+        appName = _appName;
 
         [pool drain];
     }
     
 }
-void ofxSyphonClient::setServerName(string serverName)
+void ofxSyphonClient::setServerName(string _serverName)
 {
     if(bSetup)
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-        NSString *name = [NSString stringWithCString:serverName.c_str() encoding:[NSString defaultCStringEncoding]];
+        NSString *name = [NSString stringWithCString:_serverName.c_str() encoding:[NSString defaultCStringEncoding]];
 
         if([name length] == 0)
             name = nil;
         
         [(SyphonNameboundClient*)mClient setName:name];
+        
+        serverName = _serverName;
     
         [pool drain];
     }    
+}
+
+string& ofxSyphonClient::getApplicationName(){
+    return appName;
+}
+
+string& ofxSyphonClient::getServerName(){
+    return serverName;
 }
 
 void ofxSyphonClient::bind()
@@ -132,7 +144,7 @@ void ofxSyphonClient::draw(float x, float y, float w, float h)
 
 void ofxSyphonClient::draw(float x, float y)
 {
-	this->draw(x,y, mTex.texData.width, mTex.texData.height);
+	this->draw(x, y, mTex.texData.width, mTex.texData.height);
 }
 
 float ofxSyphonClient::getWidth()

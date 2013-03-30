@@ -18,6 +18,9 @@ class ofxSyphonClient {
     
     void setApplicationName(string appName);
     void setServerName(string serverName);
+    
+    string& getApplicationName();
+    string& getServerName();
   
     void bind();
     void unbind();
@@ -34,5 +37,5 @@ class ofxSyphonClient {
 	ofTexture mTex;
 	int width, height;
 	bool bSetup;
-	string name;
+    string appName, serverName;
 };
