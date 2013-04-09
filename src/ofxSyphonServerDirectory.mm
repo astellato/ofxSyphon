@@ -87,3 +87,11 @@ vector<ofxSyphonServerList>& ofxSyphonServerDirectory::getServerList(){
 int ofxSyphonServerDirectory::size(){
     return serverList.size();
 }
+
+void ofxSyphonServerDirectory::printServerList(){
+    int i = 0;
+    for( auto& dir : getServerList() ){ //new c++ auto keyword
+        ofLogNotice("ofxSyphonServerDirectory:: ")<<" Idx: "<<i<<" Server Name: "<<dir.serverName <<" | App Name: "<<dir.appName;
+        i++;
+    }
+}

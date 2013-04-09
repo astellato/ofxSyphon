@@ -14,7 +14,7 @@ class ofxSyphonClient {
 	ofxSyphonClient();
 	~ofxSyphonClient();
 	
-    void setup ();
+    void setup();
     
     void setApplicationName(string appName);
     void setServerName(string serverName);
@@ -30,6 +30,11 @@ class ofxSyphonClient {
 	
 	float getWidth();
 	float getHeight();
+    
+    //Confused about this value from the library's SyphonClient
+    bool isValid();
+    
+    bool isSetup();
     
 	protected:
 	void* mClient;

@@ -2,7 +2,6 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetWindowTitle("ofxSyphonServerDirectoryExample");
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     ofSetLogLevel(OF_LOG_NOTICE); //change to OF_LOG_VERBOSE for full directory debug statements
     
@@ -24,15 +23,20 @@ void testApp::directoryUpdated(ofxSyphonServerDirectoryEventArgs &arg)
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+    if(directory.isValidIndex(dirIdx) && client.isSetup()){
+        ofSetWindowTitle(client.getApplicationName() + ": " + client.getServerName());
+    } else {
+        ofSetWindowTitle("ofxSyphonServerDirectoryExample");
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofBackground(255, 0, 0);
+    ofBackground(0, 0, 0);
     
     if(directory.isValidIndex(dirIdx))
         client.draw(0, 0, ofGetWidth(), ofGetHeight());
+
 }
 
 //--------------------------------------------------------------
@@ -42,12 +46,25 @@ void testApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
-    dirIdx++;
-    if(dirIdx > directory.size() - 1)
-        dirIdx = 0;
-    client.setServerName(directory.getServerList()[dirIdx].serverName);
-    client.setApplicationName(directory.getServerList()[dirIdx].appName);
-    ofSetWindowTitle(client.getApplicationName() + ": " + client.getServerName());
+    switch(key){
+        case ' ':
+            directory.printServerList();
+            break;
+        default:
+        {
+            dirIdx++;
+            if(dirIdx > directory.size() - 1)
+                dirIdx = 0;
+            
+            if(directory.isValidIndex(dirIdx)){
+                client.setServerName(directory.getServerList()[dirIdx].serverName);
+                client.setApplicationName(directory.getServerList()[dirIdx].appName);
+            }
+            
+            cout<<"setup: "<<client.isSetup()<<" valid: "<<client.isValid()<<"\n";
+        }
+            break;
+    }
 }
 
 //--------------------------------------------------------------

@@ -35,13 +35,16 @@ void ofxSyphonClient::setup()
                
 	bSetup = true;
     
+    //appName = std::string([[(SyphonNameboundClient*)mClient appName] UTF8String]);
+    //serverName = std::string([[(SyphonNameboundClient*)mClient name] UTF8String]);
+    
     [pool drain];
 }
 
 void ofxSyphonClient::setApplicationName(string _appName)
 {
-    if(bSetup)
-    {
+    if(bSetup) {
+
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
         NSString *name = [NSString stringWithCString:_appName.c_str() encoding:[NSString defaultCStringEncoding]];
@@ -56,8 +59,8 @@ void ofxSyphonClient::setApplicationName(string _appName)
 }
 void ofxSyphonClient::setServerName(string _serverName)
 {
-    if(bSetup)
-    {
+    if(bSetup) {
+
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
         NSString *name = [NSString stringWithCString:_serverName.c_str() encoding:[NSString defaultCStringEncoding]];
@@ -74,10 +77,12 @@ void ofxSyphonClient::setServerName(string _serverName)
 }
 
 string& ofxSyphonClient::getApplicationName(){
+    //return std::string([[(SyphonNameboundClient*)mClient appName] UTF8String]);
     return appName;
 }
 
 string& ofxSyphonClient::getServerName(){
+    //return std::string([[(SyphonNameboundClient*)mClient name] UTF8String]);
     return serverName;
 }
 
@@ -106,6 +111,8 @@ void ofxSyphonClient::bind()
         mTex.texData.pixelType = GL_UNSIGNED_BYTE;
         mTex.texData.bFlipTexture = YES;
         mTex.texData.bAllocated = YES;
+        // fixes ofTexture delete bug . . . oops
+        mTex.texData.bUseExternalTextureID = YES;
         
         mTex.bind();
     }
@@ -130,7 +137,7 @@ void ofxSyphonClient::unbind()
     else
 		cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unbind.\n";
 
-        [pool drain];
+    [pool drain];
 }
 
 void ofxSyphonClient::draw(float x, float y, float w, float h)
@@ -155,6 +162,16 @@ float ofxSyphonClient::getWidth()
 float ofxSyphonClient::getHeight()
 {
 	return mTex.texData.height;
+}
+
+bool ofxSyphonClient::isValid()
+{
+    // This does not mean what I think it means
+    return [(SyphonNameboundClient*)mClient client].isValid;
+}
+
+bool ofxSyphonClient::isSetup(){
+    return bSetup;
 }
 
 

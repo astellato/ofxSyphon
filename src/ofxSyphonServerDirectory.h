@@ -45,6 +45,7 @@ public:
 
     bool isValidIndex(int _idx);
     vector<ofxSyphonServerList>& getServerList();
+    void printServerList();
 	ofxSyphonServerDirectoryEvents events;
 	
 private:

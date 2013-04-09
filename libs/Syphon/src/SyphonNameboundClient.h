@@ -61,6 +61,7 @@
 @property (readwrite, retain) NSString *appName;
 - (void)lockClient;
 - (void)unlockClient;
+
 /*
  @property (readonly) SyphonClient *client
 
