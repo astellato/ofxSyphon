@@ -32,6 +32,17 @@ bool ofxSyphonServerDirectory::isValidIndex(int _idx){
     return (_idx < serverList.size());
 }
 
+bool ofxSyphonServerDirectory::isValidServer(string _appName, string _serverName){
+    bool b = false;
+    for(auto& server : serverList){
+        if(server.serverName == _serverName && server.appName == _appName){
+            b = true;
+            break;
+        }
+    }
+    return b;
+}
+
 void ofxSyphonServerDirectory::setup ()
 {
 	if(!bSetup)

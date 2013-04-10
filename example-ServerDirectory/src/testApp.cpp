@@ -15,15 +15,15 @@ void testApp::setup(){
 }
 void testApp::directoryUpdated(ofxSyphonServerDirectoryEventArgs &arg)
 {
-    for( auto& dir : arg.directory->getServerList() ){ //new c++ auto keyword
-        ofLogNotice("ofxSyphonServerDirectory Updated:: ")<<" Server Name: "<<dir.serverName <<" | App Name: "<<dir.appName;
+    for( auto& server : arg.directory->getServerList() ){ //new c++ auto keyword
+        ofLogNotice("ofxSyphonServerDirectory Updated:: ")<<" Server Name: "<<server.serverName <<" | App Name: "<<server.appName;
     }
     dirIdx = 0;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    if(directory.isValidIndex(dirIdx) && client.isSetup()){
+    if(directory.isValidServer(client.getApplicationName(), client.getServerName())){
         ofSetWindowTitle(client.getApplicationName() + ": " + client.getServerName());
     } else {
         ofSetWindowTitle("ofxSyphonServerDirectoryExample");
@@ -34,7 +34,7 @@ void testApp::update(){
 void testApp::draw(){
     ofBackground(0, 0, 0);
     
-    if(directory.isValidIndex(dirIdx))
+    if(directory.isValidServer(client.getApplicationName(), client.getServerName()))
         client.draw(0, 0, ofGetWidth(), ofGetHeight());
 
 }
@@ -50,6 +50,9 @@ void testApp::keyReleased(int key){
         case ' ':
             directory.printServerList();
             break;
+        case 'p':
+            cout<<client.getApplicationName() + ": " + client.getServerName()<<"\n";
+            break;
         default:
         {
             dirIdx++;
@@ -61,7 +64,7 @@ void testApp::keyReleased(int key){
                 client.setApplicationName(directory.getServerList()[dirIdx].appName);
             }
             
-            cout<<"setup: "<<client.isSetup()<<" valid: "<<client.isValid()<<"\n";
+            //cout<<"setup: "<<client.isSetup()<<" valid: "<<client.isValid()<<"\n";
         }
             break;
     }

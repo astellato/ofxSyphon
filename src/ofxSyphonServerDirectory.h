@@ -44,6 +44,8 @@ public:
     int size();
 
     bool isValidIndex(int _idx);
+    bool isValidServer(string _appName, string _serverName);
+    
     vector<ofxSyphonServerList>& getServerList();
     void printServerList();
 	ofxSyphonServerDirectoryEvents events;
