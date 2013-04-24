@@ -31,9 +31,12 @@ Install ofxSyphon in the addons folder of your openFrameworks installation. An e
 Instructions
 ------------
 
-To add ofxSyphon to your project, you need to drag the ofxSyphon addon folder into your project (like any other OF add-on). Consult SyphonExample to see how ofxSyphon works.
+To add ofxSyphon to your project:
 
-Remember to add a copy build phase to a new project that contains the Syphon framework.
+ - Drag the ofxSyphon addon folder into your project (like any other OF add-on).
+ - Add a Copy Files build phase to new projects to copy the Syphon framework into the Frameworks folder of the built product.
+
+The included SyphonExample demonstrates these steps.
 
 Credits
 -------
