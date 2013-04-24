@@ -1,6 +1,8 @@
 Syphon for Open Frameworks, Public Beta 2
+=========================================
 
 About
+-----
 
 Syphon is a system for sending video between applications. You can use it to send high resolution and high frame rate video, 3D textures and synthesized content between your openFrameworks application other applications and environments.
 
@@ -11,25 +13,30 @@ ofxSyphonClient - brings frames from other applications into openFrameworks wrap
 ofxSyphonServer - allows ofTextures and the whole GLUT scene to be named and published to the system, so that other applications which support Syphon can use them.
 
 Licensing
+---------
 
 Syphon for Open Frameworks is published under a Simplified BSD license. See the included License.txt file.
 
 Requirements
+------------
 
 Mac OS X 10.6.4 or greater
 Open Frameworks 007 or better
 
 Installation
+------------
 
 Install ofxSyphon in the addons folder of your openFrameworks installation. An example project called SyphonExample is included.
    
 Instructions
+------------
 
 To add ofxSyphon to your project, you need to drag the ofxSyphon addon folder into your project (like any other OF add-on). Consult SyphonExample to see how ofxSyphon works.
 
 Remember to add a copy build phase to a new project that contains the Syphon framework.
 
 Credits
+-------
 
 Syphon for Open Frameworks - Tom Butterworth (bangnoise) and Anton Marini (vade) and Anthony Stellato (astellato).
 
