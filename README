@@ -21,8 +21,7 @@ Open Frameworks 007 or better
 
 Installation
 
-Install ofxSyphon in the addons folder of your openFrameworks installation.
-Install the sample project SyphonExample into the apps/addonExamples folder of your openFrameworks installation.
+Install ofxSyphon in the addons folder of your openFrameworks installation. An example project called SyphonExample is included.
    
 Instructions
 
