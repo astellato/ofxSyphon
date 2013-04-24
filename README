@@ -38,6 +38,8 @@ To add ofxSyphon to your project:
 
 The included SyphonExample demonstrates these steps.
 
+Use any Syphon-enabled application to send or receive frames. You can use the [Syphon Demo Apps](http://code.google.com/p/syphon-implementations/downloads/detail?name=Syphon%20Demo%20Apps%20Public%20Beta%202.dmg&can=2&q=#makechanges) to test functionality.
+
 Credits
 -------
 
