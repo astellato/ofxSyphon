@@ -17,7 +17,7 @@ class ofxSyphonServer {
 	string getName();
 	void publishScreen();
     void publishTexture(ofTexture* inputTexture);
-
+    void publishTexture2(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
     
 	protected:
 	void *mSyphon;

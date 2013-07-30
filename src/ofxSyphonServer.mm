@@ -102,3 +102,16 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 	}
 }
 
+void ofxSyphonServer::publishTexture2(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped)
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    if (!mSyphon)
+    {
+        mSyphon = [[SyphonServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+    }
+    
+    [(SyphonServer *)mSyphon publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];
+    [pool drain];
+
+}
