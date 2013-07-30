@@ -17,12 +17,10 @@ ofxSyphonServer::ofxSyphonServer()
 
 ofxSyphonServer::~ofxSyphonServer()
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	if (!mSyphon)
+        return;
 
-    [(SyphonServer *)mSyphon stop];
-    [(SyphonServer *)mSyphon release];
-    
-    [pool drain];
+    stop();
 }
 
 
@@ -65,7 +63,10 @@ string ofxSyphonServer::getName()
 
 void ofxSyphonServer::publishScreen()
 {
-	int w = ofGetWidth();
+	if (!mSyphon)
+        return;
+
+    int w = ofGetWidth();
 	int h = ofGetHeight();
 	
 	ofTexture tex;
@@ -81,6 +82,9 @@ void ofxSyphonServer::publishScreen()
 
 void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 {
+	if (!mSyphon)
+        return;
+
     // If we are setup, and our input texture
 	if(inputTexture->bAllocated())
     {
@@ -102,8 +106,11 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 	}
 }
 
-void ofxSyphonServer::publishTexture2(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped)
+void ofxSyphonServer::publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped)
 {
+	if (!mSyphon)
+        return;
+
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     if (!mSyphon)
@@ -113,5 +120,19 @@ void ofxSyphonServer::publishTexture2(GLuint id, GLenum target, GLsizei width, G
     
     [(SyphonServer *)mSyphon publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];
     [pool drain];
+}
 
+void ofxSyphonServer::stop()
+{
+	if (!mSyphon)
+        return;
+
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    [(SyphonServer *)mSyphon stop];
+    [(SyphonServer *)mSyphon release];
+    
+    mSyphon = nil;
+    
+    [pool drain];
 }
