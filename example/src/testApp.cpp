@@ -1,7 +1,10 @@
 #include "testApp.h"
 
-const int width = 800;
-const int height = 600;
+/*
+ The dimensions of our random noise texture
+ */
+const int width = 200;
+const int height = 100;
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -103,13 +106,13 @@ void testApp::draw(){
 	ofDrawBitmapString("lines\npress 's' to toggle smoothness", 300,300);
     
     // draw static into our one texture.
-    unsigned char pixels[200*100*4];
+    unsigned char pixels[width*height*4];
     
-    for (int i = 0; i < 200*100*4; i++)
+    for (int i = 0; i < width*height*4; i++)
     {
         pixels[i] = (int)(255 * ofRandomuf());
     }
-    tex.loadData(pixels, 200, 100, GL_RGBA);
+    tex.loadData(pixels, width, height, GL_RGBA);
     
     tex.draw(50, 50);
     
