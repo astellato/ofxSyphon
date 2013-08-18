@@ -18,7 +18,6 @@ class ofxSyphonServer {
 	void publishScreen();
     void publishTexture(ofTexture* inputTexture);
     void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
-    void stop();
 	protected:
 	void *mSyphon;
 };
