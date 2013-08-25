@@ -38,49 +38,74 @@ void ofxSyphonClient::setup()
     [pool drain];
 }
 
-void ofxSyphonClient::setApplicationName(string appName)
+bool ofxSyphonClient::isSetup(){
+    return bSetup;
+}
+
+void ofxSyphonClient::set(ofxSyphonServerDescription _server){
+    set(_server.appName, _server.serverName);
+}
+
+void ofxSyphonClient::set(string _appName, string _serverName){
+    setApplicationName(_appName);
+    setServerName(_serverName);
+}
+
+void ofxSyphonClient::setApplicationName(string _appName)
 {
     if(bSetup)
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-        NSString *name = [NSString stringWithCString:appName.c_str() encoding:[NSString defaultCStringEncoding]];
+        NSString *name = [NSString stringWithCString:_appName.c_str() encoding:[NSString defaultCStringEncoding]];
         
         [(SyphonNameboundClient*)mClient setAppName:name];
+        
+        appName = _appName;
 
         [pool drain];
     }
     
 }
-void ofxSyphonClient::setServerName(string serverName)
+void ofxSyphonClient::setServerName(string _serverName)
 {
     if(bSetup)
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-        NSString *name = [NSString stringWithCString:serverName.c_str() encoding:[NSString defaultCStringEncoding]];
+        NSString *name = [NSString stringWithCString:_serverName.c_str() encoding:[NSString defaultCStringEncoding]];
 
         if([name length] == 0)
             name = nil;
         
         [(SyphonNameboundClient*)mClient setName:name];
+        
+        serverName = _serverName;
     
         [pool drain];
     }    
 }
 
+string& ofxSyphonClient::getApplicationName(){
+    return appName;
+}
+
+string& ofxSyphonClient::getServerName(){
+    return serverName;
+}
+
 void ofxSyphonClient::bind()
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-
+    
     if(bSetup)
     {
      	[(SyphonNameboundClient*)mClient lockClient];
         SyphonClient *client = [(SyphonNameboundClient*)mClient client];
-   
+        
         latestImage = [client newFrameImageForContext:CGLGetCurrentContext()];
 		NSSize texSize = [(SyphonImage*)latestImage textureSize];
-                
+        
         // we now have to manually make our ofTexture's ofTextureData a proxy to our SyphonImage
         mTex.setUseExternalTextureID([(SyphonImage*)latestImage textureName]);
         mTex.texData.textureTarget = GL_TEXTURE_RECTANGLE_ARB;  // Syphon always outputs rect textures.
@@ -135,7 +160,7 @@ void ofxSyphonClient::draw(float x, float y, float w, float h)
 
 void ofxSyphonClient::draw(float x, float y)
 {
-	this->draw(x,y, mTex.texData.width, mTex.texData.height);
+	this->draw(x, y, mTex.texData.width, mTex.texData.height);
 }
 
 float ofxSyphonClient::getWidth()

@@ -12,6 +12,8 @@ ofxSyphonClient - brings frames from other applications into openFrameworks wrap
 
 ofxSyphonServer - allows ofTextures and the whole GLUT scene to be named and published to the system, so that other applications which support Syphon can use them.
 
+ofxSyphonDirectory - lets users browse the shared Syphon directory of all available servers
+
 Licensing
 ---------
 
@@ -21,12 +23,12 @@ Requirements
 ------------
 
 Mac OS X 10.6.4 or greater
-Open Frameworks 007 or better
+Open Frameworks 008 or better
 
 Installation
 ------------
 
-Install ofxSyphon in the addons folder of your openFrameworks installation. An example project called SyphonExample is included.
+Install ofxSyphon in the addons folder of your openFrameworks installation. Examples projects called example-Basic and example-ServerDirectory is included
    
 Instructions
 ------------

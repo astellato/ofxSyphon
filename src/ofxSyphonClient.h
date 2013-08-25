@@ -8,16 +8,24 @@
  */
 
 #include "ofMain.h"
+#include "ofxSyphon.h"
 
 class ofxSyphonClient {
 	public:
 	ofxSyphonClient();
 	~ofxSyphonClient();
 	
-    void setup ();
+    void setup();
+    bool isSetup();
     
-    void setApplicationName(string appName);
-    void setServerName(string serverName);
+    void set(ofxSyphonServerDescription _server);
+    void set(string _serverName, string _appName);
+    
+    void setApplicationName(string _appName);
+    void setServerName(string _serverName);
+    
+    string& getApplicationName();
+    string& getServerName();
   
     void bind();
     void unbind();
@@ -34,5 +42,5 @@ class ofxSyphonClient {
 	ofTexture mTex;
 	int width, height;
 	bool bSetup;
-	string name;
+    string appName, serverName;
 };

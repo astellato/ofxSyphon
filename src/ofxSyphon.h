@@ -10,3 +10,4 @@
 #include "ofMain.h"
 #import "ofxSyphonClient.h"
 #import "ofxSyphonServer.h"
+#import "ofxSyphonServerDirectory.h"
