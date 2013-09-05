@@ -43,7 +43,7 @@ bool ofxSyphonClient::isSetup(){
 }
 
 void ofxSyphonClient::set(ofxSyphonServerDescription _server){
-    set(_server.appName, _server.serverName);
+    set(_server.serverName, _server.appName);
 }
 
 void ofxSyphonClient::set(string _serverName, string _appName){
