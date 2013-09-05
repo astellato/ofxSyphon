@@ -20,7 +20,7 @@ void testApp::setup(){
 	mClient.setup();
     
     //using Syphon app Simple Server, found at http://syphon.v002.info/
-    mClient.set("Simple Server","");
+    mClient.set("","Simple Server");
 	
     tex.allocate(200, 100, GL_RGBA);
     
