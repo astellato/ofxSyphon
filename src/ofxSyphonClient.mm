@@ -176,6 +176,20 @@ void ofxSyphonClient::draw(float x, float y)
 	this->draw(x, y, mTex.texData.width, mTex.texData.height);
 }
 
+void ofxSyphonClient::drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh)
+{
+    this->bind();
+    
+    mTex.drawSubsection(x, y, w, h, sx, sy, sw, sh);
+    
+    this->unbind();
+}
+
+void ofxSyphonClient::drawSubsection(float x, float y, float sx, float sy, float sw, float sh)
+{
+	this->drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
+}
+
 float ofxSyphonClient::getWidth()
 {
 	return mTex.texData.width;
