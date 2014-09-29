@@ -33,10 +33,13 @@ Install ofxSyphon in the addons folder of your openFrameworks installation. Exam
 Instructions
 ------------
 
+Unfortunately the OpenFrameworks Project Generator does not work with ofxSyphon (at the time of writing - OF 0.8.4).
+
 To add ofxSyphon to your project:
 
- - Drag the ofxSyphon addon folder into your project (like any other OF add-on).
+ - Drag the ofxSyphon addon folder into your project.
  - Add a Copy Files build phase to new projects to copy the Syphon framework into the Frameworks folder of the built product.
+ - Add the location of the Syphon framework (`addons/ofxSyphon/lib/Syphon/lib/osx`) to the `Framework Search Paths` Build Setting in your Xcode project.
 
 The included SyphonExample demonstrates these steps.
 
