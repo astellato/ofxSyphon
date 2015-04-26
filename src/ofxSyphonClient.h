@@ -35,10 +35,11 @@ class ofxSyphonClient {
     void drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh);
     void drawSubsection(float x, float y, float sx, float sy, float sw, float sh);
 
-	
 	float getWidth();
 	float getHeight();
     
+    ofTexture& getTextureRef();
+
 	protected:
 	void* mClient;
     void* latestImage;

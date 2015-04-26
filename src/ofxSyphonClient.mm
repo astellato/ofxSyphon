@@ -190,6 +190,10 @@ void ofxSyphonClient::drawSubsection(float x, float y, float sx, float sy, float
 	this->drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
 }
 
+ofTexture& ofxSyphonClient::getTextureRef() {
+    return mTex;
+}
+
 float ofxSyphonClient::getWidth()
 {
 	return mTex.texData.width;
