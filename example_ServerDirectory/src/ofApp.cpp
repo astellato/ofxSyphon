@@ -70,21 +70,28 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     //press any key to move through all available Syphon servers
-    dirIdx++;
-    if(dirIdx > dir.size() - 1)
-        dirIdx = 0;
+    if (dir.size() > 0)
+    {
+        dirIdx++;
+        if(dirIdx > dir.size() - 1)
+            dirIdx = 0;
 
-    client.set(dir.getDescription(dirIdx));
-    string serverName = client.getServerName();
-    string appName = client.getApplicationName();
+        client.set(dir.getDescription(dirIdx));
+        string serverName = client.getServerName();
+        string appName = client.getApplicationName();
 
-    if(serverName == ""){
-        serverName = "null";
+        if(serverName == ""){
+            serverName = "null";
+        }
+        if(appName == ""){
+            appName = "null";
+        }
+        ofSetWindowTitle(serverName + ":" + appName);
     }
-    if(appName == ""){
-        appName = "null";
+    else
+    {
+        ofSetWindowTitle("No Server");
     }
-    ofSetWindowTitle(serverName + ":" + appName);
 }
 
 //--------------------------------------------------------------
