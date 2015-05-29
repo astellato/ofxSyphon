@@ -14,7 +14,9 @@ class ofxSyphonClient {
 	public:
 	ofxSyphonClient();
 	~ofxSyphonClient();
-	
+    ofxSyphonClient(ofxSyphonClient const& s);
+    ofxSyphonClient & operator= (ofxSyphonClient const& s);
+
     void setup();
     bool isSetup();
     

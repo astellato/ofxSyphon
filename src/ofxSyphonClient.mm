@@ -11,9 +11,10 @@
 #import <Syphon/Syphon.h>
 #import "SyphonNameboundClient.h"
 
-ofxSyphonClient::ofxSyphonClient()
+ofxSyphonClient::ofxSyphonClient() :
+mClient(nil), latestImage(nil), width(0), height(0), bSetup(false)
 {
-	bSetup = false;
+
 }
 
 ofxSyphonClient::~ofxSyphonClient()
@@ -23,6 +24,41 @@ ofxSyphonClient::~ofxSyphonClient()
     [(SyphonNameboundClient*)mClient release];
     mClient = nil;
     
+    [pool drain];
+}
+
+ofxSyphonClient::ofxSyphonClient(ofxSyphonClient const& s) :
+mClient([(SyphonNameboundClient*)s.mClient retain]),
+latestImage([(SyphonImage*)s.latestImage retain]),
+mTex(s.mTex),
+width(s.width),
+height(s.height),
+bSetup(s.bSetup),
+appName(s.appName),
+serverName(s.serverName)
+{
+
+}
+
+ofxSyphonClient & ofxSyphonClient::operator= (ofxSyphonClient const& s)
+{
+    if (&s == this)
+    {
+        return *this;
+    }
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+
+    [(SyphonNameboundClient*)mClient release];
+    mClient = [(SyphonNameboundClient*)s.mClient retain];
+    [(SyphonImage*)latestImage release];
+    latestImage = [(SyphonImage*)s.latestImage retain];
+    mTex = s.mTex;
+    width = s.width;
+    height = s.height;
+    bSetup = s.bSetup;
+    appName = s.appName;
+    serverName = s.serverName;
+
     [pool drain];
 }
 
