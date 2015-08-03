@@ -82,7 +82,7 @@ void ofxSyphonServer::publishScreen()
 void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 {
     // If we are setup, and our input texture
-	if(inputTexture->bAllocated())
+	if(inputTexture->isAllocated())
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
