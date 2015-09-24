@@ -18,6 +18,8 @@ class ofxSyphonClient {
     void setup();
     bool isSetup();
     
+    ofTexture& getTexture() {return mTex;}
+    
     void set(ofxSyphonServerDescription _server);
     void set(string _serverName, string _appName);
     
