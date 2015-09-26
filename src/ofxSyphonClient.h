@@ -18,8 +18,6 @@ class ofxSyphonClient {
     void setup();
     bool isSetup();
     
-    ofTexture& getTexture() {return mTex;}
-    
     void set(ofxSyphonServerDescription _server);
     void set(string _serverName, string _appName);
     
@@ -31,6 +29,13 @@ class ofxSyphonClient {
   
     void bind();
     void unbind();
+    
+    /*
+     To use the texture with getTexture()
+     you should surround it with bind() and 
+     unbind() functions */
+    
+    ofTexture& getTexture() {return mTex;}
     
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);
