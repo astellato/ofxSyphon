@@ -36,9 +36,67 @@
 
 /*!
  @relates SyphonServer
- If this key is matched with a NSNumber with a BOOL value YES, then the server will be invisible to other Syphon users. You are then responsible for passing the NSDictionary returned by serverDescription to processes which require it to create a SyphonClient. Default is NO.
+ If this key is present and matched with a NSNumber with a BOOL value YES, then the server will be invisible to other Syphon users. You are then responsible for passing the NSDictionary returned by serverDescription to processes which require it to create a SyphonClient. Default is NO.
  */
 extern NSString * const SyphonServerOptionIsPrivate;
+
+/*!
+ @relates SyphonServer
+ If this key is present and matched with one of the NSString constants below, it describes the image format of the texture being published. The server may use this information to select its internal representation of your frames. If this key is not present the default is SyphonImageFormatRGBA8.
+
+ */
+extern NSString* const SyphonServerOptionImageFormat;
+
+/*! @} */
+/*! @name Image Format Constants */
+
+/*!
+ @relates SyphonServer
+  This constant is used with the SyphonServerOptionImageFormat option key to specify an RGB image with alpha with 8 bits per component.
+ */
+extern NSString* const SyphonImageFormatRGBA8;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an RGB image with 8 bits per component.
+ */
+extern NSString* const SyphonImageFormatRGB8;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an RGB image with alpha with 32 bits per component.
+ */
+extern NSString* const SyphonImageFormatRGBA32;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an RGB image with 32 bits per component.
+ */
+extern NSString* const SyphonImageFormatRGB32;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify a luminance image with 8 bits per component.
+ */
+extern NSString* const SyphonImageFormatLuminance8;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an intensity or luminance image with alpha with 8 bits per component.
+ */
+extern NSString* const SyphonImageFormatLuminanceAlpha8;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an intensity or luminance image with 32 bits per component.
+ */
+extern NSString* const SyphonImageFormatLuminance32;
+
+/*!
+ @relates SyphonServer
+ This constant is used with the SyphonServerOptionImageFormat option key to specify an intensity or luminance image with alpha with 32 bits per component.
+ */
+extern NSString* const SyphonImageFormatLuminanceAlpha32;
 
 /*! @} */
 
@@ -60,6 +118,10 @@ extern NSString * const SyphonServerOptionIsPrivate;
  NSString *_uuid;
  BOOL _broadcasts;
 
+    GLenum _internalFormat;
+    GLenum _format;
+    GLenum _type;
+
  id _connectionManager;
 
  CGLContextObj cgl_ctx;
@@ -69,9 +131,13 @@ extern NSString * const SyphonServerOptionIsPrivate;
  SyphonImage *_surfaceTexture;
  GLuint _surfaceFBO;
 
- GLint _previousReadFBO;
- GLint _previousDrawFBO;
- GLint _previousFBO;
+ GLuint _positionBuffer, _texCoordBuffer, _vertexArrayObj;
+ GLuint _vertexShader, _2dFragShader, _rectFragShader;
+ GLuint _2dShaderProgram, _rectShaderProgram;
+ GLint _2dTex0Loc, _rectTex0Loc;
+ BOOL _isGL3;
+
+ CGLContextObj _previousCGLContext;
 
  int32_t _mdLock;
 }
@@ -133,6 +199,16 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
 - (void)publishFrameTexture:(GLuint)texID textureTarget:(GLenum)target imageRegion:(NSRect)region textureDimensions:(NSSize)size flipped:(BOOL)isFlipped;
 
 /*! 
+ Publishes the part of the framebuffer described in region of the named FBO to clients. You should not bracket calls to this method with calls to -bindToDrawFrameOfSize: and -unbindAndPublish - they are provided as an alternative to using this method.
+ 
+ This method does not lock the server's CGL context. If there is a chance of other threads using the context during calls to this method, bracket it with calls to CGLLockContext() and CGLUnlockContext(), passing in the value of the server's context property as the argument.
+ @param fboID The name of the FBO to publish, which must be valid in the CGL context provided when the server was created.
+ @param region The sub-region of the FBO to publish.
+ @param size The full size of the FBO
+*/
+- (void)publishFramebuffer:(GLuint)fboID imageRegion:(NSRect)region textureDimensions:(NSSize)size;
+
+/*! 
  Binds an FBO for you to publish a frame of the given dimensions by drawing into the server's context (check it using the context property). If YES is returned, you must pair this with a call to -unbindAndPublish once you have finished drawing. If NO is returned you should abandon drawing and not call -unbindAndPublish.
  This method does not lock the server's CGL context. If there is a chance other threads may use the context during calls to this method, bracket it with calls to CGLLockContext() and CGLUnlockContext(), passing in the value of the server's context property as the argument.
  @param size The size the frame you wish to publish.
@@ -158,7 +234,7 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
 - (SyphonImage *)newFrameImage;
 
 /*! 
- Stops the server instance. In garbage-collected applications you must call this method prior to removing strong references to the server. In non-garbage-collected applications, use of this method is optional.
+ Stops the server instance. In garbage-collected applications you must call this method prior to removing strong references to the server. In non-garbage-collected applications, use of this method is optional but encouraged.
 */
 
 - (void)stop;

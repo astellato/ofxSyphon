@@ -1,10 +1,13 @@
-Syphon for Open Frameworks, Public Beta 2
+Syphon for Open Frameworks, Public Beta 3
 =========================================
 
 About
 -----
 
 Syphon is a system for sending video between applications. You can use it to send high resolution and high frame rate video, 3D textures and synthesized content between your openFrameworks application other applications and environments.
+
+Beta 3 adds support for ofGLProgrammableRenderer with OpenGL 3.2 support by swapping the default Syphon.framework with the branch from here: https://github.com/GameClay/syphon-framework/tree/PSW-OpenGL3
+Also there is an added function for sharing an FBO directly.
 
 Syphon for openFrameworks includes one add-on with two new objects, ofxSyphonClient & ofxSyphonServer. 
 
@@ -48,6 +51,8 @@ Use any Syphon-enabled application to send or receive frames. You can use the [S
 Credits
 -------
 
-Syphon for Open Frameworks - Tom Butterworth (bangnoise) and Anton Marini (vade) and Anthony Stellato (astellato).
+Syphon for Open Frameworks - Tom Butterworth (bangnoise) and Anton Marini (vade) and Anthony Stellato (astellato) and Ole Kristensen (olekristensen).
+
+Syphon for OpenGL3 - Pat Wilson (ZeroStride)
 
 http://syphon.v002.info 

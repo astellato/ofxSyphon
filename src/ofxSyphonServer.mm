@@ -78,6 +78,27 @@ void ofxSyphonServer::publishScreen()
 	tex.clear();
 }
 
+void ofxSyphonServer::publishFBO(ofFbo* inputFbo){
+    // If we are setup, and our input texture
+	if(inputFbo->isAllocated())
+    {
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        
+		if (!mSyphon)
+		{
+			mSyphon = [[SyphonServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+		}
+        
+        [(SyphonServer *)mSyphon publishFramebuffer:inputFbo->getFbo() imageRegion:NSMakeRect(0, 0, inputFbo->getWidth(), inputFbo->getHeight()) textureDimensions:NSMakeSize(inputFbo->getWidth(), inputFbo->getHeight())];
+        
+        [pool drain];
+    }
+    else
+    {
+		cout<<"ofxSyphonServer FBO is not properly backed.  Cannot draw.\n";
+	}
+}
+
 
 void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 {
