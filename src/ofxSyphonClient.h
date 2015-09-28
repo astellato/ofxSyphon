@@ -32,6 +32,13 @@ class ofxSyphonClient {
     void bind();
     void unbind();
     
+    /*
+     To use the texture with getTexture()
+     you should surround it with bind() and 
+     unbind() functions */
+    
+    ofTexture& getTexture() {return mTex;}
+    
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);
     void drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh);
