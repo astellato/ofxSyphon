@@ -33,7 +33,7 @@ latestImage([(SyphonImage*)s.latestImage retain]),
 mTex(s.mTex),
 width(s.width),
 height(s.height),
-bSetup(s.bSetup),<
+bSetup(s.bSetup),
 appName(s.appName),
 serverName(s.serverName)
 {
