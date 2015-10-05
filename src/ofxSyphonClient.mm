@@ -33,7 +33,7 @@ latestImage([(SyphonImage*)s.latestImage retain]),
 mTex(s.mTex),
 width(s.width),
 height(s.height),
-bSetup(s.bSetup),
+bSetup(s.bSetup),<
 appName(s.appName),
 serverName(s.serverName)
 {
@@ -164,7 +164,14 @@ void ofxSyphonClient::bind()
         mTex.texData.tex_h = texSize.height;
         mTex.texData.tex_t = texSize.width;
         mTex.texData.tex_u = texSize.height;
-        mTex.texData.glTypeInternal = GL_RGBA;
+        
+#if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR == 9)
+        mTex.texData.glInternalFormat = GL_RGBA;
+#endif
+#if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR == 8)
+	mTex.texData.glTypeInternal = GL_RGBA;
+#endif        
+        
 #if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
         mTex.texData.glType = GL_RGBA;
         mTex.texData.pixelType = GL_UNSIGNED_BYTE;
