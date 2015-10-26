@@ -1,18 +1,16 @@
-Syphon for Open Frameworks, Public Beta 2
-=========================================
+Syphon for Open Frameworks
+==========================
 
 About
 -----
 
 Syphon is a system for sending video between applications. You can use it to send high resolution and high frame rate video, 3D textures and synthesized content between your openFrameworks application other applications and environments.
 
-Syphon for openFrameworks includes one add-on with two new objects, ofxSyphonClient & ofxSyphonServer. 
+Syphon for openFrameworks includes one add-on with three new objects, ofxSyphonClient, ofxSyphonServer and ofxSyphonServerDirectory:
 
-ofxSyphonClient - brings frames from other applications into openFrameworks wrapped in an ofTexture, which can be bound and drawn like any ofTexture.
-
-ofxSyphonServer - allows ofTextures and the whole GLUT scene to be named and published to the system, so that other applications which support Syphon can use them.
-
-ofxSyphonDirectory - lets users browse the shared Syphon directory of all available servers
+ - ofxSyphonClient: brings frames from other applications into openFrameworks wrapped in an ofTexture, which can be bound and drawn like any ofTexture.
+ - ofxSyphonServer: allows ofTextures and the whole GLUT scene to be named and published to the system, so that other applications which support Syphon can use them.
+ - ofxSyphonDirectory: lets users browse the shared Syphon directory of all available servers
 
 Licensing
 ---------
@@ -28,12 +26,14 @@ Open Frameworks 008 or better
 Installation
 ------------
 
-Install ofxSyphon in the addons folder of your openFrameworks installation. Examples projects called example-Basic and example-ServerDirectory is included
+Clone ofxSyphon to the addons folder of your openFrameworks installation. Examples projects called example-Basic and example-ServerDirectory are included.
+
+The repository has branches for major OpenFrameworks versions. The master branch corresponds to the latest official OpenFrameworks release. An of_head branch roughly follows current OpenFrameworks development. Use the branch which corresponds to the version of OpenFrameworks you are using.
    
 Instructions
 ------------
 
-Unfortunately the OpenFrameworks Project Generator does not work with ofxSyphon (at the time of writing - OF 0.8.4).
+Unfortunately the OpenFrameworks Project Generator does not work with ofxSyphon in OF 0.8.X.
 
 To add ofxSyphon to your project:
 
