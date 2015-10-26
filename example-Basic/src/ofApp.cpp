@@ -44,12 +44,12 @@ void ofApp::draw(){
 	ofSetColor(255,130,0);
 	float radius = 50 + 10 * sin(counter);
 	ofFill();		// draw "filled shapes"
-	ofCircle(100,400,radius);
+	ofDrawCircle(100,400,radius);
 	
 	// now just an outline
 	ofNoFill();
 	ofSetHexColor(0xCCCCCC);
-	ofCircle(100,400,80);
+	ofDrawCircle(100,400,80);
 	
 	// use the bitMap type
 	// note, this can be slow on some graphics cards
@@ -64,20 +64,20 @@ void ofApp::draw(){
 	ofFill();
 	for (int i = 0; i < 200; i++){
 		ofSetColor((int)ofRandom(0,255),(int)ofRandom(0,255),(int)ofRandom(0,255));
-		ofRect(ofRandom(250,350),ofRandom(350,450),ofRandom(10,20),ofRandom(10,20));
+		ofDrawRectangle(ofRandom(250,350),ofRandom(350,450),ofRandom(10,20),ofRandom(10,20));
 	}
 	ofSetHexColor(0x000000);
 	ofDrawBitmapString("rectangles", 275,500);
 	
 	//---------------------------  transparency
 	ofSetHexColor(0x00FF33);
-	ofRect(100,150,100,100);
+	ofDrawRectangle(100,150,100,100);
 	// alpha is usually turned off - for speed puposes.  let's turn it on!
 	ofEnableAlphaBlending();
 	ofSetColor(255,0,0,127);   // red, 50% transparent
-	ofRect(150,230,100,33);
+	ofDrawRectangle(150,230,100,33);
 	ofSetColor(255,0,0,(int)(counter * 10.0f) % 255);   // red, variable transparent
-	ofRect(150,170,100,33);
+	ofDrawRectangle(150,170,100,33);
 	ofDisableAlphaBlending();
 	
 	ofSetHexColor(0x000000);
@@ -92,7 +92,7 @@ void ofApp::draw(){
 	
 	ofSetHexColor(0xFF0000);
 	for (int i = 0; i < 20; i++){
-		ofLine(300,100 + (i*5),500, 50 + (i*10));
+		ofDrawLine(300,100 + (i*5),500, 50 + (i*10));
 	}
 	
 	if (bSmooth){
