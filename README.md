@@ -33,15 +33,9 @@ The repository has branches for major OpenFrameworks versions. The master branch
 Instructions
 ------------
 
-Unfortunately the OpenFrameworks Project Generator does not work with ofxSyphon in OF 0.8.X.
+Use the OpenFrameworks Project Generator to add ofxSyphon to your project.
 
-To add ofxSyphon to your project:
-
- - Drag the ofxSyphon addon folder into your project.
- - Add a Copy Files build phase to new projects to copy the Syphon framework into the Frameworks folder of the built product.
- - Add the location of the Syphon framework (`addons/ofxSyphon/libs/Syphon/lib/osx`) to the `Framework Search Paths` Build Setting in your Xcode project.
-
-The included SyphonExample demonstrates these steps.
+The two example projects demonstrate usage.
 
 Use any Syphon-enabled application to send or receive frames. You can use the [Syphon Demo Apps](http://code.google.com/p/syphon-implementations/downloads/detail?name=Syphon%20Demo%20Apps%20Public%20Beta%202.dmg) to test functionality.
 
