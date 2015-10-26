@@ -1,10 +1,10 @@
-#include "testApp.h"
+#include "ofApp.h"
 
 const int width = 800;
 const int height = 600;
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void ofApp::setup(){
 	counter = 0;
 	ofSetCircleResolution(50);
 	
@@ -28,12 +28,12 @@ void testApp::setup(){
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
 	counter = counter + 0.033f;
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
 	
     // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -130,7 +130,7 @@ void testApp::draw(){
 
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){
+void ofApp::keyPressed  (int key){
 	if (key == 's'){
 		bSmooth = !bSmooth;
 	}

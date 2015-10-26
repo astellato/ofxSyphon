@@ -5,7 +5,7 @@
 #include "ofMain.h"
 #include "ofxSyphon.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 	
 public:
 	
