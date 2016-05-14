@@ -42,6 +42,7 @@ void ofxSyphonServerDirectory::setup ()
     {
 		bSetup = true;
         addObservers();
+        refresh(true);
 	}
 }
 
