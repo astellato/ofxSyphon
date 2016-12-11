@@ -127,10 +127,11 @@ bool ofxSyphonServer::tryToBindForSize(int w,int h){
 
     res = [(SyphonServer *)mSyphon bindToDrawFrameOfSize:NSMakeSize( w,h)];
     if(res){
-      ofViewport(0,0,w,h,false);
-      ofSetupScreenOrtho(w,h);
       ofPushMatrix();
       ofPushView();
+      ofViewport(0,0,w,h,false);
+      ofSetupScreenOrtho(w,h);
+
     }
   }
   
