@@ -16,6 +16,7 @@ void ofApp::setup(){
     
 	mainOutputSyphonServer.setName("Screen Output");
 	individualTextureSyphonServer.setName("Texture Output");
+  bindedTextureSyphonServer.setName("binded Texture Output");
 
 	mClient.setup();
     
@@ -34,7 +35,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+
+  if(bindedTextureSyphonServer.tryToBindForSize(800, 600)){
     // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -121,10 +123,22 @@ void ofApp::draw(){
     
     mClient.draw(50, 50);    
     
-	mainOutputSyphonServer.publishScreen();
-    
-    individualTextureSyphonServer.publishTexture(&tex);
-    
+
+
+
+    bindedTextureSyphonServer.unbindAndPublish();
+  }
+
+
+
+  individualTextureSyphonServer.publishTexture(&tex);
+
+
+  glClearColor(0.0, 0.0, 0.0, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  bindedTextureSyphonServer.getCurrentTexture().draw(0,0);
+  mainOutputSyphonServer.publishScreen();
+
     ofDrawBitmapString("Note this text is not captured by Syphon since it is drawn after publishing.\nYou can use this to hide your GUI for example.", 150,500);    
 }
 

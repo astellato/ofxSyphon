@@ -22,6 +22,7 @@ public:
     
 	ofxSyphonServer mainOutputSyphonServer;
 	ofxSyphonServer individualTextureSyphonServer;
+  ofxSyphonServer bindedTextureSyphonServer;
 	
 	ofxSyphonClient mClient;
 };
