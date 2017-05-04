@@ -19,7 +19,8 @@ void ofApp::setup(){
 	// register Syphon server callback
 	ofAddListener(serverDir.events.serverAnnounced, this, &ofApp::serverAnnounced);
 	
-	// allocate fbo and image
+	// allocate fbo and image,
+	// these are defaults but can change in draw() if the incoming texture size is different
 	fbo.allocate(640, 480);
 	image.allocate(640, 480, OF_IMAGE_COLOR_ALPHA); // use OF_PIXELS_RGBA if grabbing to ofPixels
 	
@@ -66,6 +67,13 @@ void ofApp::draw(){
 	// this solution comes from https://forum.openframeworks.cc/t/saveimage-plus-alpha/1145/6
 	if(serverDir.isValidIndex(serverIndex) && client.getTexture().isAllocated()){
 		ofTextureData &texData = client.getTexture().getTextureData();
+		// reallocate if the incoming texture size is different from our fbo & image
+		// ie. we've connected to a different Syphon server with a different texture size
+		if((texData.width != 0 && texData.height != 0) &&
+		   (image.getWidth() != texData.width || image.getHeight() != texData.height)) {
+			fbo.allocate(texData.width, texData.height);
+			image.allocate(texData.width, texData.height, OF_IMAGE_COLOR_ALPHA);
+		}
 		// grab pixel data from the FBO, note pixel data pointer as destination
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo.getId());
 		glReadPixels(0, 0, texData.width, texData.height, texData.glInternalFormat, GL_UNSIGNED_BYTE, image.getPixels().getData());
