@@ -6,18 +6,18 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowTitle("ofxSyphonImageExample");
-    ofSetWindowShape(800, 600);
-    ofSetFrameRate(60);
+	ofSetWindowTitle("ofxSyphonImageExample");
+	ofSetWindowShape(800, 600);
+	ofSetFrameRate(60);
 	ofBackground(0);
 
-    // setup our Syphon server directory & client
-    serverDir.setup();
-    client.setup();
+	// setup our Syphon server directory & client
+	serverDir.setup();
+	client.setup();
 	serverIndex = -1;
 
-    // register Syphon server callback
-    ofAddListener(serverDir.events.serverAnnounced, this, &ofApp::serverAnnounced);
+	// register Syphon server callback
+	ofAddListener(serverDir.events.serverAnnounced, this, &ofApp::serverAnnounced);
 	
 	// allocate fbo and image
 	fbo.allocate(640, 480);
@@ -30,10 +30,10 @@ void ofApp::setup(){
 
 // called when a Syphon server appears, automatically connects to first server
 void ofApp::serverAnnounced(ofxSyphonServerDirectoryEventArgs &arg){
-    for(auto& dir : arg.servers){
-        ofLog() << "Server Name: "<< dir.serverName <<" | App Name: " << dir.appName;
-    }
-    serverIndex = 0;
+	for(auto& dir : arg.servers){
+		ofLog() << "Server Name: "<< dir.serverName <<" | App Name: " << dir.appName;
+	}
+	serverIndex = 0;
 	client.set(serverDir.getDescription(serverIndex));
 }
 
@@ -49,8 +49,8 @@ void ofApp::draw(){
 	ofSetColor(255);
 	ofSetRectMode(OF_RECTMODE_CORNER);
 	fbo.begin();
-    if(serverDir.isValidIndex(serverIndex)){
-        client.draw(0, 0);
+	if(serverDir.isValidIndex(serverIndex)){
+		client.draw(0, 0);
 	}
 	fbo.end();
 	fbo.draw(0, 0); // draw the FBO so we can see it
