@@ -28,7 +28,6 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <Quartz/Quartz.h>
 #import <OpenGL/OpenGL.h>
 
 /*! @name Server Options Dictionary Key Constants */
@@ -39,6 +38,25 @@
  If this key is matched with a NSNumber with a BOOL value YES, then the server will be invisible to other Syphon users. You are then responsible for passing the NSDictionary returned by serverDescription to processes which require it to create a SyphonClient. Default is NO.
  */
 extern NSString * const SyphonServerOptionIsPrivate;
+
+/*!
+ @relates SyphonServer
+ If this key is matched with a NSNumber with a NSUInteger value greater than zero, the server will, when using the bindToDrawFrameOfSize / unbindAndPublish API, render to an antialiased render buffer with the requested multisample count (via the FBO MSAA and BLIT extensions). Default sample count is 0 should this key be ommited, indicating no antialiased buffers will be used. If the requested sample count is not supported by the GL context, the nearest supported sample count will be used instead. If MSAA is not supported at all, this key will be ignored and the server will render without the antialiasing stage.
+ 
+ */
+extern NSString * const SyphonServerOptionAntialiasSampleCount;
+
+/*!
+ @relates SyphonServer
+ If this key is matched with a NSNumber with an integer value greater than zero, the server will render to an FBO with a depth buffer attached. The value provided should indicate the desired resolution of the buffer: 16, 24 or 32. The server will always attempt to attach a depth buffer when one is requested, however it may create one of a resolution other than that requested. This has useful effect only when using the bindToDrawFrameOfSize / unbindAndPublish API.
+ */
+extern NSString * const SyphonServerOptionDepthBufferResolution;
+
+/*!
+ @relates SyphonServer
+ If this key is matched with a NSNumber with an integer value greater than zero, the server will render to an FBO with a stencil buffer attached. The value provided should indicate the desired resolution of the buffer: 1, 4, 8 or 16. The server will always attempt to attach a stencil buffer when one is requested, however it may create one of a resolution other than that requested.
+ */
+extern NSString * const SyphonServerOptionStencilBufferResolution;
 
 /*! @} */
 
@@ -61,27 +79,30 @@ extern NSString * const SyphonServerOptionIsPrivate;
  BOOL _broadcasts;
 
  id _connectionManager;
-
- CGLContextObj cgl_ctx;
+    id _renderer;
+    CGLContextObj _shareContext;
 
  void *_surfaceRef;
  BOOL _pushPending;
  SyphonImage *_surfaceTexture;
- GLuint _surfaceFBO;
 
- GLint _previousReadFBO;
- GLint _previousDrawFBO;
- GLint _previousFBO;
+    BOOL _wantsContextChanges;
+
+    GLint _virtualScreen;
 
  int32_t _mdLock;
+
+    id<NSObject> _activityToken;
 }
 /** @name Instantiation */
 /** @{ */
 /*!
  Creates a new server with the specified human-readable name (which need not be unique), CGLContext and options. The server will be started immediately. Init may fail and return nil if the server could not be started.
+ 
+ This method does not lock the CGL context. If there is a chance other threads may use the context during calls to this method, bracket it with calls to CGLLockContext() and CGLUnlockContext().
  @param serverName Non-unique human readable server name. This is not required and may be nil, but is usually used by clients in their UI to aid identification.
  @param context The CGLContextObj context that textures will be valid and available on for publishing.
- @param options A dictionary containing key-value pairs to specify options for the server. Currently the only option is SyphonServerOptionIsPrivate. See its description for details.
+ @param options A dictionary containing key-value pairs to specify options for the server. Currently supported options are SyphonServerOptionIsPrivate, SyphonServerOptionAntialiasQuality and SyphonServerOptionHasDepthBuffer. See their descriptions for details.
  @returns A newly intialized SyphonServer. Nil on failure.
 */
 
@@ -158,7 +179,7 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
 - (SyphonImage *)newFrameImage;
 
 /*! 
- Stops the server instance. In garbage-collected applications you must call this method prior to removing strong references to the server. In non-garbage-collected applications, use of this method is optional.
+ Stops the server instance. Use of this method is optional and releasing all references to the server has the same effect.
 */
 
 - (void)stop;

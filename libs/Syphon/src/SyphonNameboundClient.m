@@ -34,23 +34,18 @@
 @end
 @implementation SyphonNameboundClient
 
-- (id)init
+- (id)initWithContext:(CGLContextObj)context
 {
     self = [super init];
 	if (self)
 	{
 		_lock = OS_SPINLOCK_INIT;
         _searchPending = YES;
+        _context = CGLRetainContext(context);
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerAnnounce:) name:SyphonServerAnnounceNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerUpdate:) name:SyphonServerUpdateNotification object:nil];
 	}
 	return self;
-}
-
-- (void)finalize
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super finalize];
 }
 
 - (void)dealloc
@@ -60,6 +55,10 @@
 	[_appname release];
 	[_client release];
 	[_lockedClient release];
+    if (_context)
+    {
+        CGLReleaseContext(_context);
+    }
 	[super dealloc];
 }
 
@@ -202,7 +201,7 @@
         }
         else
         {
-            newClient = [[SyphonClient alloc] initWithServerDescription:[matches lastObject] options:nil newFrameHandler:nil];
+            newClient = [[SyphonClient alloc] initWithServerDescription:[matches lastObject] context:_context options:nil newFrameHandler:nil];
         }
     }
 	[self setClient:newClient havingLock:YES];
@@ -212,14 +211,29 @@
     [newClient release];
 }
 
++ (NSDictionary *)serverInfoFromNotification:(NSNotification *)notification
+{
+    // This deals with a change in notifications from Syphon.
+    // Once all projects using SyphonNameboundClient are updated to newer Syphon.framework
+    // we won't need this method and can always use notification.userInfo.
+    if ([notification.object isKindOfClass:[SyphonServerDirectory class]])
+    {
+        return notification.userInfo;
+    }
+    else
+    {
+        return notification.object;
+    }
+}
+
 - (void)handleServerAnnounce:(NSNotification *)notification
 {
-	NSDictionary *newInfo = [notification object];
+	NSDictionary *newInfo = [SyphonNameboundClient serverInfoFromNotification:notification];
     // If we don't have a client, or our current client doesn't match our parameters any more
 	if ((_client == nil || ![self parametersMatchDescription:[_client serverDescription]])
 		&& [self parametersMatchDescription:newInfo])
 	{
-		SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo options:nil newFrameHandler:nil];
+        SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
 		[newClient release];
@@ -228,7 +242,7 @@
 
 - (void)handleServerUpdate:(NSNotification *)notification
 {
-	NSDictionary *newInfo = [notification object];
+	NSDictionary *newInfo = [SyphonNameboundClient serverInfoFromNotification:notification];
 	NSDictionary *currentServer = [_client serverDescription];
 	// It's possible our client hasn't received the update yet, so we can't trust its server description
 	// so check if the new update is for our client...
@@ -244,7 +258,7 @@
 	// If we don't have a matching client but this client's new details match, then set up a new client
 	if (_client == nil && [self parametersMatchDescription:newInfo])
 	{
-		SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo options:nil newFrameHandler:nil];
+        SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
 		[newClient release];
@@ -253,7 +267,7 @@
 
 - (void)handleServerRetire:(NSNotification *)notification
 {
-	NSString *retiringUUID = [[notification object] objectForKey:SyphonServerDescriptionUUIDKey];
+	NSString *retiringUUID = [[SyphonNameboundClient serverInfoFromNotification:notification] objectForKey:SyphonServerDescriptionUUIDKey];
 	NSString *ourUUID = [[_client serverDescription] objectForKey:SyphonServerDescriptionUUIDKey];
 	
 	if ([retiringUUID isEqualToString:ourUUID])

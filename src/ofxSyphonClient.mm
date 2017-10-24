@@ -67,7 +67,7 @@ void ofxSyphonClient::setup()
     // Need pool
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-	mClient = [[SyphonNameboundClient alloc] init]; 
+	mClient = [[SyphonNameboundClient alloc] initWithContext:CGLGetCurrentContext()];
                
 	bSetup = true;
     
@@ -152,7 +152,7 @@ void ofxSyphonClient::bind()
      	[(SyphonNameboundClient*)mClient lockClient];
         SyphonClient *client = [(SyphonNameboundClient*)mClient client];
         
-        latestImage = [client newFrameImageForContext:CGLGetCurrentContext()];
+        latestImage = [client newFrameImage];
 		NSSize texSize = [(SyphonImage*)latestImage textureSize];
         
         // we now have to manually make our ofTexture's ofTextureData a proxy to our SyphonImage
