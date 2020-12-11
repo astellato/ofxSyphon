@@ -115,3 +115,69 @@ void ofxSyphonServer::publishTexture(GLuint id, GLenum target, GLsizei width, GL
     [pool drain];
     
 }
+
+bool ofxSyphonServer::tryToBindForSize(int w,int h){
+  bool res;
+  @autoreleasepool{
+
+    if (!mSyphon)
+    {
+      mSyphon = [[SyphonServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+    }
+
+    res = [(SyphonServer *)mSyphon bindToDrawFrameOfSize:NSMakeSize( w,h)];
+    if(res){
+      ofPushMatrix();
+      ofPushView();
+      ofViewport(0,0,w,h,false);
+      ofSetupScreenOrtho(w,h);
+
+    }
+  }
+  
+		return res;
+}
+
+void ofxSyphonServer::unbindAndPublish(){
+  if (mSyphon){
+    @autoreleasepool{
+      [(SyphonServer *)mSyphon unbindAndPublish];
+
+      updateCurrentTexture();
+      ofPopView();
+      ofPopMatrix();
+    }
+  }
+}
+
+ofTexture & ofxSyphonServer::getCurrentTexture(){
+  return mTex;
+}
+void ofxSyphonServer::updateCurrentTexture(){
+
+  if(!mSyphon) return ;
+  @autoreleasepool{
+    SyphonImage * Img =[(SyphonServer *)mSyphon newFrameImage] ;
+    NSSize texSize = [(SyphonImage*)Img textureSize];
+    mTex.setUseExternalTextureID([Img textureName]);
+
+
+    mTex.texData.textureTarget = GL_TEXTURE_RECTANGLE_ARB;  // Syphon always outputs rect textures.
+    mTex.texData.width = texSize.width;
+    mTex.texData.height = texSize.height;
+    mTex.texData.tex_w = texSize.width;
+    mTex.texData.tex_h = texSize.height;
+    mTex.texData.tex_t = texSize.width;
+    mTex.texData.tex_u = texSize.height;
+    mTex.texData.glInternalFormat = GL_RGBA;
+#if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
+    mTex.texData.glType = GL_RGBA;
+    mTex.texData.pixelType = GL_UNSIGNED_BYTE;
+#endif
+    mTex.texData.bFlipTexture = YES;
+    mTex.texData.bAllocated = YES;
+    
+    
+  }
+  
+}

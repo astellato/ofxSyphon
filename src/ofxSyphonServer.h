@@ -10,14 +10,19 @@
 #include "ofMain.h"
 
 class ofxSyphonServer {
-	public:
+public:
 	ofxSyphonServer();
 	~ofxSyphonServer();
 	void setName (string n);
 	string getName();
 	void publishScreen();
-    void publishTexture(ofTexture* inputTexture);
-    void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
-	protected:
+	void publishTexture(ofTexture* inputTexture);
+	void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
+	bool tryToBindForSize(int w,int h);
+	void unbindAndPublish();
+	ofTexture & getCurrentTexture();
+	void updateCurrentTexture();
+protected:
+	ofTexture mTex;
 	void *mSyphon;
 };
