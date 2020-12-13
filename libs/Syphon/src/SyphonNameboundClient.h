@@ -56,7 +56,9 @@
 	SyphonClient *_client;
 	SyphonClient *_lockedClient;
 	BOOL _searchPending;
+    CGLContextObj _context;
 }
+- (id)initWithContext:(CGLContextObj)context;
 @property (readwrite, retain) NSString *name;
 @property (readwrite, retain) NSString *appName;
 - (void)lockClient;
