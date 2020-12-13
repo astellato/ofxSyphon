@@ -70,7 +70,7 @@ void ofApp::draw(){
 		// reallocate if the incoming texture size is different from our fbo & image
 		// ie. we've connected to a different Syphon server with a different texture size
 		if((texData.width != 0 && texData.height != 0) &&
-		   (image.getWidth() != texData.width || image.getHeight() != texData.height)) {
+		   (image.getWidth() != texData.width || image.getHeight() != texData.height)){
 			fbo.allocate(texData.width, texData.height);
 			image.allocate(texData.width, texData.height, OF_IMAGE_COLOR_ALPHA);
 		}
