@@ -106,7 +106,7 @@ bool ofxSyphonServerDirectory::serverExists(ofxSyphonServerDescription _server){
     return false;
 }
 
-bool ofxSyphonServerDirectory::serverExists(string _serverName, string _appName){
+bool ofxSyphonServerDirectory::serverExists(std::string _serverName, std::string _appName){
     return serverExists(ofxSyphonServerDescription(_serverName, _appName));
 }
 
