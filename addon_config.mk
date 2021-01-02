@@ -29,6 +29,8 @@ android/armeabi-v7a:
 	ADDON_SOURCES =
 
 osx:
+	ADDON_CFLAGS = -F$(OF_ROOT)/addons/ofxSyphon/libs/Syphon/lib/osx/
+	ADDON_LDFLAGS = -F$(OF_ROOT)/addons/ofxSyphon/libs/Syphon/lib/osx/ -framework Syphon
 
 ios:
 	ADDON_SOURCES_EXCLUDE = libs/%
