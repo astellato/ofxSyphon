@@ -117,7 +117,7 @@
 
 - (void)unlockClient
 {
-	SyphonClient *doneWith;
+	SyphonOpenGLClient *doneWith;
 	OSSpinLockLock(&_lock);
 	doneWith = _lockedClient;
 	_lockedClient = nil;
@@ -125,15 +125,15 @@
 	[doneWith release]; // release outside the lock as it may take time
 }
 
-- (SyphonClient *)client
+- (SyphonOpenGLClient *)client
 {
 	return _lockedClient;
 }
 
-- (void)setClient:(SyphonClient *)client havingLock:(BOOL)isLocked
+- (void)setClient:(SyphonOpenGLClient *)client havingLock:(BOOL)isLocked
 {
-	SyphonClient *newClient = [client retain];
-	SyphonClient *oldClient;
+    SyphonOpenGLClient *newClient = [client retain];
+    SyphonOpenGLClient *oldClient;
 	
 	if (!isLocked) OSSpinLockLock(&_lock);
 	oldClient = _client;
@@ -185,7 +185,7 @@
 
 - (void)setClientFromSearchHavingLock:(BOOL)isLocked
 {
-	SyphonClient *newClient = nil;
+    SyphonOpenGLClient *newClient = nil;
 	
 	if (!isLocked) OSSpinLockLock(&_lock);
     
@@ -201,7 +201,7 @@
         }
         else
         {
-            newClient = [[SyphonClient alloc] initWithServerDescription:[matches lastObject] context:_context options:nil newFrameHandler:nil];
+            newClient = [[SyphonOpenGLClient alloc] initWithServerDescription:[matches lastObject] context:_context options:nil newFrameHandler:nil];
         }
     }
 	[self setClient:newClient havingLock:YES];
@@ -233,7 +233,7 @@
 	if ((_client == nil || ![self parametersMatchDescription:[_client serverDescription]])
 		&& [self parametersMatchDescription:newInfo])
 	{
-        SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
+        SyphonOpenGLClient *newClient = [[SyphonOpenGLClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
 		[newClient release];
@@ -258,7 +258,7 @@
 	// If we don't have a matching client but this client's new details match, then set up a new client
 	if (_client == nil && [self parametersMatchDescription:newInfo])
 	{
-        SyphonClient *newClient = [[SyphonClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
+        SyphonOpenGLClient *newClient = [[SyphonOpenGLClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
 		[newClient release];

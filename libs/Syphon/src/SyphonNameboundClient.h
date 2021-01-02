@@ -53,8 +53,8 @@
 	NSString *_name;
 	OSSpinLock _lock;
 	NSString *_appname;
-	SyphonClient *_client;
-	SyphonClient *_lockedClient;
+	SyphonOpenGLClient *_client;
+	SyphonOpenGLClient *_lockedClient;
 	BOOL _searchPending;
     CGLContextObj _context;
 }
@@ -68,5 +68,5 @@
 
 	Only use this property (and the client it returns) between lock/unlockClient calls.
  */
-@property (readonly) SyphonClient *client;
+@property (readonly) SyphonOpenGLClient *client;
 @end
