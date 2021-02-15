@@ -26,7 +26,7 @@ ofxSyphonServer::~ofxSyphonServer()
 }
 
 
-void ofxSyphonServer::setName(string n)
+void ofxSyphonServer::setName(std::string n)
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
@@ -45,9 +45,9 @@ void ofxSyphonServer::setName(string n)
     [pool drain];
 }
 
-string ofxSyphonServer::getName()
+std::string ofxSyphonServer::getName()
 {
-	string name;
+	std::string name;
 	if (mSyphon)
 	{
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];

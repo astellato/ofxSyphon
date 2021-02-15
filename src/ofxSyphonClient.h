@@ -21,13 +21,13 @@ class ofxSyphonClient {
     bool isSetup();
     
     void set(ofxSyphonServerDescription _server);
-    void set(string _serverName, string _appName);
+    void set(std::string _serverName, std::string _appName);
     
-    void setApplicationName(string _appName);
-    void setServerName(string _serverName);
+    void setApplicationName(std::string _appName);
+    void setServerName(std::string _serverName);
     
-    string& getApplicationName();
-    string& getServerName();
+    std::string& getApplicationName();
+    std::string& getServerName();
   
     void bind();
     void unbind();
@@ -54,5 +54,5 @@ class ofxSyphonClient {
 	ofTexture mTex;
 	int width, height;
 	bool bSetup;
-    string appName, serverName;
+    std::string appName, serverName;
 };

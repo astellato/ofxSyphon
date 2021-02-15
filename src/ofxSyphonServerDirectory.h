@@ -19,7 +19,7 @@ public:
         serverName = appName = "null";
     }
     
-	ofxSyphonServerDescription(string _serverName, string _appName)
+	ofxSyphonServerDescription(std::string _serverName, std::string _appName)
 	{
         serverName = _serverName;
         appName = _appName;
@@ -30,7 +30,7 @@ public:
         return (lhs.serverName == rhs.serverName) && (lhs.appName == rhs.appName);
     }
     
-	string serverName, appName;
+	std::string serverName, appName;
 };
 
 class ofxSyphonServerDirectoryEventArgs : public ofEventArgs {
@@ -55,7 +55,7 @@ public:
     int size();
 
     bool isValidIndex(int _idx);
-    bool serverExists(string _serverName, string _appName);
+    bool serverExists(std::string _serverName, std::string _appName);
     bool serverExists(ofxSyphonServerDescription _server);
     ofxSyphonServerDescription& getDescription(int _idx);
     
@@ -80,4 +80,3 @@ private:
 	bool bSetup;
     vector<ofxSyphonServerDescription> serverList;
 };
-
