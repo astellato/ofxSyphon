@@ -19,7 +19,7 @@ public:
         serverName = appName = "null";
     }
     
-	ofxSyphonServerDescription(std::string _serverName, std::string _appName)
+	ofxSyphonServerDescription(const std::string &_serverName, const std::string &_appName)
 	{
         serverName = _serverName;
         appName = _appName;
@@ -55,11 +55,11 @@ public:
     int size();
 
     bool isValidIndex(int _idx);
-    bool serverExists(std::string _serverName, std::string _appName);
-    bool serverExists(ofxSyphonServerDescription _server);
-    ofxSyphonServerDescription& getDescription(int _idx);
+    bool serverExists(const std::string &_serverName, const std::string &_appName);
+    bool serverExists(const ofxSyphonServerDescription &_server);
+    const ofxSyphonServerDescription& getDescription(int _idx);
     
-    vector<ofxSyphonServerDescription>& getServerList();
+    const vector<ofxSyphonServerDescription>& getServerList();
 	ofxSyphonServerDirectoryEvents events;
     
     //needs to be public because of the nature of CFNotifications.  please do not call this.

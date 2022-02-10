@@ -97,7 +97,7 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
     }
 }
 
-bool ofxSyphonServerDirectory::serverExists(ofxSyphonServerDescription _server){
+bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_server){
     for(auto& s: serverList){
         if(s == _server)
             return true;
@@ -106,15 +106,15 @@ bool ofxSyphonServerDirectory::serverExists(ofxSyphonServerDescription _server){
     return false;
 }
 
-bool ofxSyphonServerDirectory::serverExists(std::string _serverName, std::string _appName){
+bool ofxSyphonServerDirectory::serverExists(const std::string &_serverName, const std::string &_appName){
     return serverExists(ofxSyphonServerDescription(_serverName, _appName));
 }
 
-ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx){
+const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx){
     return serverList.at(_idx);
 }
 
-vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
+const vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
     return serverList;
 }
 

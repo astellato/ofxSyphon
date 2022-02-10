@@ -21,13 +21,13 @@ class ofxSyphonClient {
     bool isSetup();
     
     void set(ofxSyphonServerDescription _server);
-    void set(std::string _serverName, std::string _appName);
+    void set(const std::string &_serverName, const std::string &_appName);
     
-    void setApplicationName(std::string _appName);
-    void setServerName(std::string _serverName);
+    void setApplicationName(const std::string &_appName);
+    void setServerName(const std::string &_serverName);
     
-    std::string& getApplicationName();
-    std::string& getServerName();
+    const std::string& getApplicationName();
+    const std::string& getServerName();
   
     void bind();
     void unbind();

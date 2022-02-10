@@ -82,7 +82,7 @@ void ofxSyphonClient::set(ofxSyphonServerDescription _server){
     set(_server.serverName, _server.appName);
 }
 
-void ofxSyphonClient::set(std::string _serverName, std::string _appName){
+void ofxSyphonClient::set(const std::string &_serverName, const std::string &_appName){
     if(bSetup)
     {
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -100,7 +100,7 @@ void ofxSyphonClient::set(std::string _serverName, std::string _appName){
     }
 }
 
-void ofxSyphonClient::setApplicationName(std::string _appName)
+void ofxSyphonClient::setApplicationName(const std::string &_appName)
 {
     if(bSetup)
     {
@@ -116,7 +116,7 @@ void ofxSyphonClient::setApplicationName(std::string _appName)
     }
     
 }
-void ofxSyphonClient::setServerName(std::string _serverName)
+void ofxSyphonClient::setServerName(const std::string &_serverName)
 {
     if(bSetup)
     {
@@ -135,11 +135,11 @@ void ofxSyphonClient::setServerName(std::string _serverName)
     }    
 }
 
-std::string& ofxSyphonClient::getApplicationName(){
+const std::string& ofxSyphonClient::getApplicationName(){
     return appName;
 }
 
-std::string& ofxSyphonClient::getServerName(){
+const std::string& ofxSyphonClient::getServerName(){
     return serverName;
 }
 

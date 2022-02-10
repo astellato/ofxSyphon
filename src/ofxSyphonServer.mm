@@ -26,7 +26,7 @@ ofxSyphonServer::~ofxSyphonServer()
 }
 
 
-void ofxSyphonServer::setName(std::string n)
+void ofxSyphonServer::setName(const std::string &n)
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     

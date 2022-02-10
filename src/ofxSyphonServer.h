@@ -13,7 +13,7 @@ class ofxSyphonServer {
 	public:
 	ofxSyphonServer();
 	~ofxSyphonServer();
-	void setName (std::string n);
+	void setName (const std::string &n);
 	std::string getName();
 	void publishScreen();
     void publishTexture(ofTexture* inputTexture);
