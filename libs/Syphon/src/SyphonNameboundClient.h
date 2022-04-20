@@ -46,12 +46,14 @@
 #import <Cocoa/Cocoa.h>
 #import <libkern/OSAtomic.h>
 #import <Syphon/Syphon.h>
+#import <os/lock.h>
 
 
 @interface SyphonNameboundClient : NSObject {
 @private
 	NSString *_name;
-	OSSpinLock _lock;
+	os_unfair_lock _lock;
+
 	NSString *_appname;
 	SyphonOpenGLClient *_client;
 	SyphonOpenGLClient *_lockedClient;
