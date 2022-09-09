@@ -124,13 +124,11 @@ int ofxSyphonServerDirectory::size(){
 
 // Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.  This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.
 void ofxSyphonServerDirectory::handleNotification(CFStringRef name, CFDictionaryRef userInfo){
-    NSString *serverName, *appName;
-
-    if((NSString*)name == SyphonServerAnnounceNotification){
+    if((__bridge NSString*)name == SyphonServerAnnounceNotification){
         serverAnnounced();
-    } else if((NSString*)name == SyphonServerUpdateNotification){
+    } else if((__bridge NSString*)name == SyphonServerUpdateNotification){
         serverUpdated();
-    } else if((NSString*)name == SyphonServerRetireNotification){
+    } else if((__bridge NSString*)name == SyphonServerRetireNotification){
         serverRetired();
     }
 }

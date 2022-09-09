@@ -17,32 +17,35 @@ ofxSyphonServer::ofxSyphonServer()
 
 ofxSyphonServer::~ofxSyphonServer()
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    [(SyphonOpenGLServer *)mSyphon stop];
-    [(SyphonOpenGLServer *)mSyphon release];
-    
-    [pool drain];
+    if( mSyphon != nil ){
+        [(__bridge SyphonOpenGLServer *)mSyphon stop];
+    }
+    cleanup();
 }
 
+void ofxSyphonServer::cleanup(){
+    if( mSyphon != nil ){
+        //this transfers the memory back from void * to an objective-c object so ARC can automatically do cleanup
+        SyphonOpenGLServer * fakeServer = (__bridge_transfer SyphonOpenGLServer *)mSyphon;
+        mSyphon = nil;
+    }
+}
 
 void ofxSyphonServer::setName(const std::string &n)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
 	NSString *title = [NSString stringWithCString:n.c_str()
 										 encoding:[NSString defaultCStringEncoding]];
 	
 	if (!mSyphon)
 	{
-		mSyphon = [[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil];
+        //sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
+        mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil];
 	}
 	else
 	{
-		[(SyphonOpenGLServer *)mSyphon setName:title];
+		[(__bridge SyphonOpenGLServer *)mSyphon setName:title];
 	}
     
-    [pool drain];
 }
 
 std::string ofxSyphonServer::getName()
@@ -50,11 +53,7 @@ std::string ofxSyphonServer::getName()
 	std::string name;
 	if (mSyphon)
 	{
-		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        
-		name = [[(SyphonOpenGLServer *)mSyphon name] cStringUsingEncoding:[NSString defaultCStringEncoding]];
-		
-		[pool drain];
+		name = [[(__bridge SyphonOpenGLServer *)mSyphon name] cStringUsingEncoding:[NSString defaultCStringEncoding]];
 	}
 	else
 	{
@@ -84,17 +83,14 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     // If we are setup, and our input texture
 	if(inputTexture->isAllocated())
     {
-        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        
 		ofTextureData texData = inputTexture->getTextureData();
         
 		if (!mSyphon)
 		{
-			mSyphon = [[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+			mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
 		}
 		
-		[(SyphonOpenGLServer *)mSyphon publishFrameTexture:texData.textureID textureTarget:texData.textureTarget imageRegion:NSMakeRect(0, 0, texData.width, texData.height) textureDimensions:NSMakeSize(texData.width, texData.height) flipped:!texData.bFlipTexture];
-        [pool drain];
+		[(__bridge SyphonOpenGLServer *)mSyphon publishFrameTexture:texData.textureID textureTarget:texData.textureTarget imageRegion:NSMakeRect(0, 0, texData.width, texData.height) textureDimensions:NSMakeSize(texData.width, texData.height) flipped:!texData.bFlipTexture];
     }
     else
     {
@@ -104,14 +100,10 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 
 void ofxSyphonServer::publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped)
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
     if (!mSyphon)
     {
-        mSyphon = [[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+        mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
     }
     
-    [(SyphonOpenGLServer *)mSyphon publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];
-    [pool drain];
-    
+    [(__bridge SyphonOpenGLServer *)mSyphon publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];    
 }

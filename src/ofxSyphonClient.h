@@ -55,4 +55,7 @@ class ofxSyphonClient {
 	int width, height;
 	bool bSetup;
     std::string appName, serverName;
+    
+    protected:
+        void cleanup();
 };

@@ -51,22 +51,17 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[_name release];
-	[_appname release];
-	[_client release];
-	[_lockedClient release];
     if (_context)
     {
         CGLReleaseContext(_context);
     }
-	[super dealloc];
 }
 
 - (NSString *)name
 {
 	NSString *result;
 	OSSpinLockLock(&_lock);
-	result = [[_name retain] autorelease];
+	result = _name;
 	OSSpinLockUnlock(&_lock);
 	return result;
 }
@@ -74,8 +69,6 @@
 - (void)setName:(NSString *)name
 {
 	OSSpinLockLock(&_lock);
-	[name retain];
-	[_name release];
 	_name = name;
 	_searchPending = YES;
 	OSSpinLockUnlock(&_lock);
@@ -85,7 +78,7 @@
 {
 	NSString *result;
 	OSSpinLockLock(&_lock);
-	result = [[_appname retain] autorelease];
+	result = _appname;
 	OSSpinLockUnlock(&_lock);
 	return result;
 }
@@ -93,8 +86,6 @@
 - (void)setAppName:(NSString *)app
 {
 	OSSpinLockLock(&_lock);
-	[app retain];
-	[_appname release];
 	_appname = app;
 	_searchPending = YES;
 	OSSpinLockUnlock(&_lock);
@@ -110,7 +101,7 @@
 			[self setClientFromSearchHavingLock:YES];
 			_searchPending = NO;
 		}
-		_lockedClient = [_client retain];
+		_lockedClient = _client;
 	}
 	OSSpinLockUnlock(&_lock);
 }
@@ -122,7 +113,6 @@
 	doneWith = _lockedClient;
 	_lockedClient = nil;
 	OSSpinLockUnlock(&_lock);
-	[doneWith release]; // release outside the lock as it may take time
 }
 
 - (SyphonOpenGLClient *)client
@@ -132,7 +122,7 @@
 
 - (void)setClient:(SyphonOpenGLClient *)client havingLock:(BOOL)isLocked
 {
-    SyphonOpenGLClient *newClient = [client retain];
+    SyphonOpenGLClient *newClient = client;
     SyphonOpenGLClient *oldClient;
 	
 	if (!isLocked) OSSpinLockLock(&_lock);
@@ -156,9 +146,6 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerAnnounce:) name:SyphonServerAnnounceNotification object:nil];
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:SyphonServerRetireNotification object:nil];
 	}
-	
-	// Release the old client
-	[oldClient release];
 }
 
 - (BOOL)parametersMatchDescription:(NSDictionary *)description
@@ -197,7 +184,7 @@
         NSString *found = [[matches lastObject] objectForKey:SyphonServerDescriptionUUIDKey];
         if (found && [current isEqualToString:found])
         {
-            newClient = [_client retain];
+            newClient = _client;
         }
         else
         {
@@ -207,8 +194,6 @@
 	[self setClient:newClient havingLock:YES];
 	
     if (!isLocked) OSSpinLockUnlock(&_lock);
-	
-    [newClient release];
 }
 
 + (NSDictionary *)serverInfoFromNotification:(NSNotification *)notification
@@ -236,7 +221,6 @@
         SyphonOpenGLClient *newClient = [[SyphonOpenGLClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
-		[newClient release];
 	}
 }
 
@@ -261,7 +245,6 @@
         SyphonOpenGLClient *newClient = [[SyphonOpenGLClient alloc] initWithServerDescription:newInfo context:_context options:nil newFrameHandler:nil];
 		
 		[self setClient:newClient havingLock:NO];
-		[newClient release];
 	}
 }
 
