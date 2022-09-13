@@ -38,8 +38,8 @@ void ofxSyphonServer::setName(const std::string &n)
 	
 	if (!mSyphon)
 	{
-        //sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
-        mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil];
+        	//sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
+        	mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil];
 	}
 	else
 	{
