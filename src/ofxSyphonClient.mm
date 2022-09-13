@@ -66,8 +66,8 @@ void ofxSyphonClient::cleanup(){
 
 void ofxSyphonClient::setup()
 {
-    //sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
-    cleanup();
+	//sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
+	cleanup();
 	mClient = (__bridge_retained void *)[[SyphonNameboundClient alloc] initWithContext:CGLGetCurrentContext()];
                
 	bSetup = true;
