@@ -26,35 +26,28 @@
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 #import <Foundation/Foundation.h>
-#import "SyphonServerBase.h"
-#import "SyphonClientBase.h"
-
+#import <Syphon/SyphonServerBase.h>
+#import <Syphon/SyphonClientBase.h>
 NS_ASSUME_NONNULL_BEGIN
-
 @interface SyphonServerBase (SyphonSubclassing)
 /*!
- Subclasses call this to obtain a new IOSurface to draw to.
+ Subclasses call this to obtain a new IOSurface to draw to. The surface will always be in a BGRA8 format, other formats are not currently supported.
  @param width the width of the IOSurface in pixels
  @param height the height of the IOSurface in pixels
  @param options currently ignored, pass nil
  @returns an existing or new IOSurface sized for the given dimensions - to be released by the caller using CFRelease
  */
 - (nullable IOSurfaceRef)copySurfaceForWidth:(size_t)width height:(size_t)height options:(nullable NSDictionary<NSString *, id> *)options;
-
 /*!
  Subclasses may call this to release any current IOSurface
  */
 - (void)destroySurface;
-
 /*!
  Subclasses call this to have the server publish a new frame once the subclass has updated the IOSurface.
  */
 - (void)publish;
-
 @end
-
 @interface SyphonClientBase (SyphonSubclassing)
 /*!
  Subclasses use this method to acquire an IOSurface representing the current output from the server. Subclasses may consider the returned value valid until the next call to -invalidateFrame.
@@ -63,12 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
  are finished with it.
  */
 - (IOSurfaceRef)newSurface;
-
 /*!
  Subclasses override this method to invalidate their output when the server's surface backing changes. Do not call this method directly -
  it will be called for you when necessary.
  */
 - (void)invalidateFrame;
 @end
-
 NS_ASSUME_NONNULL_END

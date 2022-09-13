@@ -26,14 +26,9 @@
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
-#import "SyphonOpenGLServer.h"
-
+#import <Syphon/SyphonOpenGLServer.h>
 NS_ASSUME_NONNULL_BEGIN
-
 DEPRECATED_MSG_ATTRIBUTE("Use SyphonOpenGLServer")
 @interface SyphonServer : SyphonOpenGLServer
-
 @end
-
 NS_ASSUME_NONNULL_END
