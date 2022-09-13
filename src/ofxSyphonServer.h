@@ -20,5 +20,5 @@ class ofxSyphonServer {
     void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
 	protected:
 	void *mSyphon;
-    void cleanup();
+	void cleanup();
 };
