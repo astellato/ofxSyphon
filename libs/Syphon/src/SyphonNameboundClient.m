@@ -39,7 +39,7 @@
     self = [super init];
 	if (self)
 	{
-		self->_lock = OS_UNFAIR_LOCK_INIT;
+		_lock = OS_UNFAIR_LOCK_INIT;
 		
         _searchPending = YES;
         _context = CGLRetainContext(context);
