@@ -44,7 +44,6 @@
 */
 
 #import <Cocoa/Cocoa.h>
-#import <libkern/OSAtomic.h>
 #import <Syphon/Syphon.h>
 #import <os/lock.h>
 
