@@ -60,7 +60,7 @@ ofxSyphonClient & ofxSyphonClient::operator= (ofxSyphonClient const& s)
     serverName = s.serverName;
 
     [pool drain];
-	return *this;
+    return *this;
 }
 
 void ofxSyphonClient::setup()
