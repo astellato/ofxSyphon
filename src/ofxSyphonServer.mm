@@ -15,11 +15,25 @@ ofxSyphonServer::ofxSyphonServer()
 	mSyphon = nil;
 }
 
+ofxSyphonServer::ofxSyphonServer(const ofxSyphonServer &o)
+{
+    mSyphon = [(SyphonOpenGLServer *)o.mSyphon retain];
+}
+
+ofxSyphonServer &ofxSyphonServer::operator=(const ofxSyphonServer &o)
+{
+    // OK if &o == this
+    [(SyphonOpenGLServer *)o.mSyphon retain];
+    [(SyphonOpenGLServer *)mSyphon release];
+    mSyphon = o.mSyphon;
+    return *this;
+}
+
 ofxSyphonServer::~ofxSyphonServer()
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    [(SyphonOpenGLServer *)mSyphon stop];
+    // do NOT call -stop, other copies may still exist
     [(SyphonOpenGLServer *)mSyphon release];
     
     [pool drain];
