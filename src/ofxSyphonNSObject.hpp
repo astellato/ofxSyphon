@@ -24,7 +24,8 @@ public:
     ofxSyphonNSObject(const ofxSyphonNSObject &o);
     ofxSyphonNSObject & operator=(const ofxSyphonNSObject &o);
     operator bool() const;
-    // No Objective-C functionality on the class so it can't cause undefined behaviour from pure C++ code
+    // There is no Objective-C functionality on the class
+    // so it is logically impossible to cause undefined behaviour from pure C++ code
     friend ofxSyphonNSObject ofxSNOMake(ofxSyphonNSObject::ObjectType obj);
     friend void ofxSNOSet(ofxSyphonNSObject &dst, ofxSyphonNSObject::ObjectType obj);
     friend ofxSyphonNSObject::ObjectType ofxSNOGet(const ofxSyphonNSObject &o);

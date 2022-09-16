@@ -15,8 +15,11 @@ ofxSyphonNSObject::ofxSyphonNSObject()
 
 ofxSyphonNSObject::~ofxSyphonNSObject()
 {
-    // Do this explicitely here to force ARC release
-    mObject = nil;
+    // This can be called from C++ with no autorelease pool in place, so we need one
+    @autoreleasepool {
+        // Do this explicitely here to force ARC release
+        mObject = nil;
+    }
 }
 
 ofxSyphonNSObject::ofxSyphonNSObject(const ofxSyphonNSObject &o)
@@ -29,7 +32,10 @@ ofxSyphonNSObject & ofxSyphonNSObject::operator=(const ofxSyphonNSObject &o)
 {
     if (&o != this)
     {
-        mObject = o.mObject;
+        // This can be called from C++ with no autorelease pool in place, so we need one
+        @autoreleasepool {
+            mObject = o.mObject;
+        }
     }
     return *this;
 }
