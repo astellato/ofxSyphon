@@ -62,6 +62,10 @@ public:
     const vector<ofxSyphonServerDescription>& getServerList();
 	ofxSyphonServerDirectoryEvents events;
     
+    // copy and assignment are not supported
+    ofxSyphonServerDirectory(const ofxSyphonServerDirectory &o) = delete;
+    ofxSyphonServerDirectory &operator=(const ofxSyphonServerDirectory &o) = delete;
+    
     //needs to be public because of the nature of CFNotifications.  please do not call this.
     void handleNotification(CFStringRef name, CFDictionaryRef userInfo);
 	

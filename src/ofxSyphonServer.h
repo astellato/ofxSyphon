@@ -13,6 +13,8 @@ class ofxSyphonServer {
 	public:
 	ofxSyphonServer();
 	~ofxSyphonServer();
+    ofxSyphonServer(const ofxSyphonServer &o);
+    ofxSyphonServer & operator=(const ofxSyphonServer &o);
 	void setName (const std::string &n);
 	std::string getName();
 	void publishScreen();

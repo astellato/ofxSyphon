@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		fzgKbesPIq0a3rBn30+xYRA0fjE=
+		hOq4hpmJhePe+K1AC3BPTp31Df0=
 		</data>
 		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
@@ -22,90 +22,142 @@
 	<dict>
 		<key>Headers/Syphon.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			SbqTxyjmsfJSq85G+vyuK3GwT2E=
+			</data>
 			<key>hash2</key>
 			<data>
-			XdON8x6FgAYN/ariy323NmKYqlKIfyQA7uSRy9MQYBc=
+			UmgjPB538gTOGTjDnkKcHr/USQU3LIAcePvHeqj4V08=
 			</data>
 		</dict>
 		<key>Headers/SyphonClient.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			10cy6+DdEhxU5+fAUsY/Gb7JzsI=
+			</data>
 			<key>hash2</key>
 			<data>
-			E+Hx1K1b3i67gMo1tg30rryP1fRg7ZPajCPd9cQ+yws=
+			oF3Ctv10Nwdj5f1acESNMsTs/4GzeovfelKvya+MPZI=
 			</data>
 		</dict>
 		<key>Headers/SyphonClientBase.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			thG2ynFR0UoIAr3rMmDxrR2cuJo=
+			</data>
 			<key>hash2</key>
 			<data>
-			3gL3bBGg9UgPiqeGGi69LcxA74EFvnOyRDhVOjAqfU8=
+			zqo/bSA7RhgnSsO9eyQ5AuDRowCHnvFF8GWHSZyT9TY=
 			</data>
 		</dict>
 		<key>Headers/SyphonImage.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			aYRQJk0y1ME8fj9LNoMV8L3TlnU=
+			</data>
 			<key>hash2</key>
 			<data>
-			QNgx/kUfPJYco1mkPummSr6JhcQJ7BI7ShJybP1qZlI=
+			4Kke2kHmKh1Vj3OC3lU+j5pDKzdo7jFpHOmw1dI1gPQ=
 			</data>
 		</dict>
 		<key>Headers/SyphonImageBase.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			HVrA9ew+Rfa5aZecUttRQxh48BU=
+			</data>
 			<key>hash2</key>
 			<data>
-			GY/Jn62iuRHpkO6e8A/rsWCJfSm6aMWd00K4myeMZBM=
+			gQH/0rvahdI8CauthuuO50UB0zWTwkft0JMtRNLkYp8=
 			</data>
 		</dict>
 		<key>Headers/SyphonOpenGLClient.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			nZ2YJop5OH5M2b/pGXqAuMnYrAE=
+			</data>
 			<key>hash2</key>
 			<data>
-			35RXj7wesL4MU1FfBdN9/uujWmDKqnVfTmv1aEORvcY=
+			tVEeOaFC30yAcQ6nrJstqi8/6N35SzvL0sspG2iPQ+U=
 			</data>
 		</dict>
 		<key>Headers/SyphonOpenGLImage.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			tK3QV8vq7wJiXdz4yEv8IGqwgIw=
+			</data>
 			<key>hash2</key>
 			<data>
-			RPs4Gnslkuky/WIKun2Pwfqdm+kQnI36MXdeVJcLLwc=
+			ei0T+SKz6WumELK+4vUowYsBJa/oMxVA3JjG5FSnlVM=
 			</data>
 		</dict>
 		<key>Headers/SyphonOpenGLServer.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			BJh/O/05UluygSU78s9PnYilaFk=
+			</data>
 			<key>hash2</key>
 			<data>
-			A/+xMtIPIN+lopcLbMdZzWAYrcJWq5LoZVfyH9dCnMw=
+			qOLIjoFaDX58D4Ui/bzB7bNDD33sAfcJd+v5DiJfQUg=
 			</data>
 		</dict>
 		<key>Headers/SyphonServer.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			iEtZ2NvPDQzaRRWqEEyH+TwQPQg=
+			</data>
 			<key>hash2</key>
 			<data>
-			+i2FsX+7im5di5saH0DZxYGoGyeLUBs7pj3DIRNABfU=
+			gpDHGrP5s4vty2K45ifYzOnMnN+uhh1fDmsLx4cSei8=
 			</data>
 		</dict>
 		<key>Headers/SyphonServerBase.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			9lcT1q1LWfSlR4sEQRNMhJhfBcA=
+			</data>
 			<key>hash2</key>
 			<data>
-			+aLvZiQEGiO0ltZUpi3age7wcGfX7A7sGmo2Yz0BCG0=
+			4rAzvn7oh3Yx4WFi0MEEnRTqb6APaCAbH0TtfKWHo5M=
 			</data>
 		</dict>
 		<key>Headers/SyphonServerDirectory.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			hMKSbNLcJz76t7dsoqIZr2enDCY=
+			</data>
 			<key>hash2</key>
 			<data>
-			MHx7QO5dPMgu+5zYtHbmdm2cms5tI4VlGRz+CMBRop0=
+			HyANGH8QehNzT1i6saPFMtmiq9oBkGoI1jWFR95QxLw=
 			</data>
 		</dict>
 		<key>Headers/SyphonSubclassing.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			Z9/CqIfA1H2uXL8+KZlil6CwGKg=
+			</data>
 			<key>hash2</key>
 			<data>
-			aE7qYVoGmybhOyuEl7EVJqlHLSajXbSMXYpeWkvjc9Q=
+			M8i7uyNr4EuD841rdNFZlhzCIYvxitjgcjEUuTnWadE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			uWM4ZmTJ+clnyRZX1QoR78hXWSw=
+			</data>
 			<key>hash2</key>
 			<data>
 			7FJ3MqFmGPI91bXHy4kh2iKBvNWLf3jEajudiV/z4qo=
@@ -113,13 +165,21 @@
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			hOq4hpmJhePe+K1AC3BPTp31Df0=
+			</data>
 			<key>hash2</key>
 			<data>
-			WnNUPisM0cmQ0g5CfHbP/s5e6htAvz0pGHI8fdtq0oo=
+			2bgEYx6TJfuXwrrzDJm+Th8LQDXVTeIme6L6Xtk7Ams=
 			</data>
 		</dict>
 		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			MiLKDDnrUKr4EmuvhS5VQwxHGK8=
+			</data>
 			<key>hash2</key>
 			<data>
 			Oc8u4Ht7Mz58F50L9NeYpbcq9qTlhPUeZCcDu/pPyCg=
