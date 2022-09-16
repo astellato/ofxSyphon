@@ -12,52 +12,24 @@
 
 ofxSyphonServer::ofxSyphonServer()
 {
-	mSyphon = nil;
-}
-
-ofxSyphonServer::ofxSyphonServer(const ofxSyphonServer &o)
-{
-    mSyphon = [(SyphonOpenGLServer *)o.mSyphon retain];
-}
-
-ofxSyphonServer &ofxSyphonServer::operator=(const ofxSyphonServer &o)
-{
-    // OK if &o == this
-    [(SyphonOpenGLServer *)o.mSyphon retain];
-    [(SyphonOpenGLServer *)mSyphon release];
-    mSyphon = o.mSyphon;
-    return *this;
-}
-
-ofxSyphonServer::~ofxSyphonServer()
-{
-    // do NOT call -stop, other copies may still exist
-    cleanup();
-}
-
-void ofxSyphonServer::cleanup(){
-    if( mSyphon != nil ){
-        //this transfers the memory back from void * to an objective-c object so ARC can automatically do cleanup
-        SyphonOpenGLServer * fakeServer = (__bridge_transfer SyphonOpenGLServer *)mSyphon;
-        mSyphon = nil;
-    }
+	
 }
 
 void ofxSyphonServer::setName(const std::string &n)
 {
-	NSString *title = [NSString stringWithCString:n.c_str()
-										 encoding:[NSString defaultCStringEncoding]];
-	
-	if (!mSyphon)
-	{
-        	//sketchy as we transfer ownership to void * and that means we have to manage the memory ourselves so in destructor we are going to make it back into an obj-c object and transfer back so ARC can do its thing.
-        	mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil];
-	}
-	else
-	{
-		[(__bridge SyphonOpenGLServer *)mSyphon setName:title];
-	}
-    
+    @autoreleasepool {
+        NSString *title = [NSString stringWithCString:n.c_str()
+                                             encoding:[NSString defaultCStringEncoding]];
+        
+        if (!mSyphon)
+        {
+            ofxSNOSet(mSyphon, [[SyphonOpenGLServer alloc] initWithName:title context:CGLGetCurrentContext() options:nil]);
+        }
+        else
+        {
+            [(SyphonOpenGLServer *)ofxSNOGet(mSyphon) setName:title];
+        }
+    }
 }
 
 std::string ofxSyphonServer::getName()
@@ -65,7 +37,9 @@ std::string ofxSyphonServer::getName()
 	std::string name;
 	if (mSyphon)
 	{
-		name = [[(__bridge SyphonOpenGLServer *)mSyphon name] cStringUsingEncoding:[NSString defaultCStringEncoding]];
+        @autoreleasepool {
+            name = [[(SyphonOpenGLServer *)ofxSNOGet(mSyphon) name] cStringUsingEncoding:[NSString defaultCStringEncoding]];
+        }
 	}
 	else
 	{
@@ -97,12 +71,14 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     {
 		ofTextureData texData = inputTexture->getTextureData();
         
-		if (!mSyphon)
-		{
-			mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
-		}
-		
-		[(__bridge SyphonOpenGLServer *)mSyphon publishFrameTexture:texData.textureID textureTarget:texData.textureTarget imageRegion:NSMakeRect(0, 0, texData.width, texData.height) textureDimensions:NSMakeSize(texData.width, texData.height) flipped:!texData.bFlipTexture];
+        @autoreleasepool {
+            if (!mSyphon)
+            {
+                ofxSNOSet(mSyphon, [[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil]);
+            }
+            
+            [(SyphonOpenGLServer *)ofxSNOGet(mSyphon) publishFrameTexture:texData.textureID textureTarget:texData.textureTarget imageRegion:NSMakeRect(0, 0, texData.width, texData.height) textureDimensions:NSMakeSize(texData.width, texData.height) flipped:!texData.bFlipTexture];
+        }
     }
     else
     {
@@ -112,10 +88,12 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
 
 void ofxSyphonServer::publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped)
 {
-    if (!mSyphon)
-    {
-        mSyphon = (__bridge_retained void *)[[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil];
+    @autoreleasepool {
+        if (!mSyphon)
+        {
+            ofxSNOSet(mSyphon, [[SyphonOpenGLServer alloc] initWithName:@"Untitled" context:CGLGetCurrentContext() options:nil]);
+        }
+        
+        [(SyphonOpenGLServer *)ofxSNOGet(mSyphon) publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];
     }
-    
-    [(__bridge SyphonOpenGLServer *)mSyphon publishFrameTexture:id textureTarget:target imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:!isFlipped];    
 }

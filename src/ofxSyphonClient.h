@@ -9,13 +9,11 @@
 
 #include "ofMain.h"
 #include "ofxSyphon.h"
+#include "ofxSyphonNSObject.hpp"
 
 class ofxSyphonClient {
 	public:
 	ofxSyphonClient();
-	~ofxSyphonClient();
-    ofxSyphonClient(ofxSyphonClient const& s);
-    ofxSyphonClient & operator= (ofxSyphonClient const& s);
 
     void setup();
     bool isSetup();
@@ -49,13 +47,10 @@ class ofxSyphonClient {
 	float getHeight();
     
 	protected:
-	void* mClient;
-    void* latestImage;
+	ofxSyphonNSObject mClient;
+    ofxSyphonNSObject latestImage;
 	ofTexture mTex;
 	int width, height;
 	bool bSetup;
     std::string appName, serverName;
-    
-    protected:
-        void cleanup();
 };
