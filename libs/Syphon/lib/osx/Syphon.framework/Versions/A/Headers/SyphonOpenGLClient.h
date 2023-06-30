@@ -26,11 +26,15 @@
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #import <Foundation/Foundation.h>
 #import <OpenGL/OpenGL.h>
 #import <Syphon/SyphonClientBase.h>
+
 @class SyphonOpenGLImage;
+
 NS_ASSUME_NONNULL_BEGIN
+
 /*! 
  SyphonOpenGLClient makes available frames from a remote SyphonServer. A client is created from a NSDictionary which describes the server. Typically this is obtained from the shared SyphonServerDirectory, or one of Syphon's notifications.
  
@@ -38,7 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  It is safe to access instances of this class across threads, with the usual limitatiions related to OpenGL. The calls to SyphonOpenGLClient which may cause work to be done in a GL context are: -newFrameImage, -stop and -release.
  */
+
 @interface SyphonOpenGLClient : SyphonClientBase
+
 /*! 
  Returns a new client instance for the described server. You should check the isValid property after initialization to ensure a connection was made to the server.
  @param description Typically acquired from the shared SyphonServerDirectory, or one of Syphon's notifications.
@@ -48,22 +54,27 @@ NS_ASSUME_NONNULL_BEGIN
  @returns A newly initialized SyphonOpenGLClient object, or nil if a client could not be created.
 */
 - (id)initWithServerDescription:(NSDictionary *)description context:(CGLContextObj)context options:(nullable NSDictionary *)options newFrameHandler:(nullable void (^)(SyphonOpenGLClient *client))handler;
+
 /*!
  Returns the CGLContextObj associated with the client.
  */
 @property (readonly) CGLContextObj context;
+
 /*!
  A client is valid if it has a working connection to a server. Once this returns NO, the SyphonOpenGLClient will not yield any further frames.
  */
 @property (readonly) BOOL isValid;
+
 /*!
  Returns a dictionary with a description of the server the client is attached to. See SyphonServerDirectory for the keys this dictionary contains
 */
 @property (readonly) NSDictionary *serverDescription;
+
 /*!
  Returns YES if the server has output a new frame since the last time newFrameImage was called for this client, NO otherwise.
 */
 @property (readonly) BOOL hasNewFrame;
+
 /*!
  Returns a SyphonImage representing the current output from the server. The texture associated with the image may continue to update when you draw with it, but you should not depend on that behaviour: call this method every time you wish to access the current server frame. This object may have GPU resources associated with it and you should release it as soon as you are finished drawing with it.
  
@@ -74,11 +85,14 @@ NS_ASSUME_NONNULL_BEGIN
  @returns A SyphonImage representing the live output from the server. YOU ARE RESPONSIBLE FOR RELEASING THIS OBJECT when you are finished with it.
  */
 - (nullable SyphonOpenGLImage *)newFrameImage;
+
 /*!
  Stops the client from receiving any further frames from the server. Use of this method is optional and releasing all references to the client has the same effect.
 
  This method may perform work in the OpenGL context. As with any other OpenGL calls, you must ensure no other threads use those contexts during calls to this method.
  */
 - (void)stop;
+
 @end
+
 NS_ASSUME_NONNULL_END

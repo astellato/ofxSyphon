@@ -28,6 +28,8 @@
  */
 
 #import <Syphon/SyphonServerDirectory.h>
+#import <Syphon/SyphonMetalServer.h>
+#import <Syphon/SyphonMetalClient.h>
 #import <Syphon/SyphonOpenGLServer.h>
 #import <Syphon/SyphonOpenGLClient.h>
 #import <Syphon/SyphonOpenGLImage.h>
@@ -61,10 +63,8 @@
  
  @section introduction Developing with Syphon
  
- The Syphon framework provides the classes necessary to add Syphon support to your application. SyphonOpenGLServer is used to make frames available to other applications. SyphonServerDirectory is used to discover available servers. SyphonOpenGLClient is used to connect to and receive frames from a SyphonOpenGLServer.
- 
- The framework <em>requires</em> MacOS X 10.8 or later.
- 
+ The Syphon framework provides the classes necessary to add Syphon support to your application. A Syphon server is used to make frames available to other applications. SyphonServerDirectory is used to discover available servers. A SyphonClient is used to connect to and receive frames from a Syphon server. Servers and clients are available for OpenGL and Metal, and the two are interoperable.
+  
  To include Syphon in your application, follow these steps:
  
  <ol>
@@ -82,21 +82,21 @@
  
  @section servers Servers
  
- Class documentation: SyphonOpenGLServer
+ Class documentation: SyphonMetalServer, SyphonOpenGLServer
  
  Create a server:
  
  @code
- SyphonOpenGLServer *myServer = [[SyphonOpenGLServer alloc] initWithName:@"My Output" context:myContext options:nil];
+ SyphonMetalServer *myServer = [[SyphonMetalServer alloc] initWithName:@"My Output" device:device options:nil];
  @endcode
  
- and then publish new frames (you can also use GL_TEXTURE_2D textures):
+ and then publish new frames:
  
  @code
- [myServer publishFrameTexture:myTex textureTarget:GL_TEXTURE_RECTANGLE_EXT imageRegion:NSMakeRect(0, 0, width, height) textureDimensions:NSMakeSize(width, height) flipped:NO];
+ [myServer publishFrameTexture:myTex onCommandBuffer:commandBuffer imageRegion:NSMakeRect(0, 0, width, height) flipped:NO];
  @endcode
  
- Alternatively there are methods to bind and unbind the server to the OpenGL context, so you can draw into it directly.
+ The OpenGL server has a similar method, plus methods to bind and unbind the server to the OpenGL context, so you can draw into it directly.
  You can publish new frames as often as you like, but if you only publish when you have a frame different from the previous one, then clients can do less work.
  You must stop the server when you are finished with it:
  
@@ -124,12 +124,12 @@
  
  @section clients Clients
 
- Class documentation: SyphonOpenGLClient, SyphonOpenGLImage
+ Class documentation: SyphonMetalClient, SyphonOpenGLClient, SyphonOpenGLImage
 
  Usually you create a client with a server description dictionary you obtained from SyphonServerDirectory:
  
  @code
- SyphonOpenGLClient *myClient = [[SyphonOpenGLClient alloc] initWithServerDescription:description context:cgl_ctx options:nil newFrameHandler:^(SyphonOpenGLClient *client) {
+ SyphonMetalClient *myClient = [[SyphonMetalClient alloc] initWithServerDescription:description device:device options:nil newFrameHandler:^(SyphonMetalClient *client) {
 	[myView setNeedsDisplay:YES];
  }];
  @endcode
@@ -139,15 +139,12 @@
  When you are ready to draw:
  
  @code
- SyphonOpenGLImage *myFrame = [myClient newFrameImage];
- if (myFrame)
+ id<MTLTexture> *frame = [myClient newFrameImage];
+ if (frame)
  {
-	GLuint tex = myFrame.textureName;
-	NSSize dimensions = myFrame.textureSize;
+	// YOUR METAL DRAWING CODE HERE
 
-	// YOUR OPENGL DRAWING CODE HERE
-
-	[myFrame release];
+	[frame release]; // (if not using ARC)
  }
  @endcode
  
@@ -157,30 +154,9 @@
  [myClient stop];
  @endcode
  
- @section plugins Syphon.framework in a Plugin
-
- If you are using Syphon in any sort of plugin, please download the framework source and compile a version of the framework with unique class names. This avoids class-name conflicts if another plugin or the host application also embeds the Syphon framework. The framework source is set up to make this easy for you: you just need to change one build setting.
- 
- <ol>
- <li><h4>Open the framework's Xcode project.</h4>
- <p></p>
- </li>
- <li><h4>Define SYPHON_UNIQUE_CLASS_NAME_PREFIX using the Preprocessor Macros build setting.</h4>
- <p>Select the Syphon target in the project window.<br/>
- Click the Build Settings tab to display the build settings.<br/>
- Scroll down (or use the search field) to find the Preprocessor Macros (GCC_PREPROCESSOR_DEFINITIONS) setting.<br/>
- Double click the setting to add SYPHON_UNIQUE_CLASS_NAME_PREFIX=MyPluginName as a macro.
- </p></li>
- <li><h4>Build the framework.</h4>
- <p>The built framework will have custom class names. The headers alias the custom names, so you can use SyphonOpenGLServer, SyphonOpenGLClient, SyphonOpenGLImage and SyphonServerDirectory as normal in your code.<br/>
- </p></li>
- </ol>
- 
  @section help More examples and help
  
  Example projects implementing a server and client are included with the Syphon SDK. You can also examine the source to some Syphon implementations on <a href="https://github.com/Syphon">GitHub</a>.
- 
- Use the <a href="http://forums.v002.info/forum.php?id=7" target="_blank">Syphon developer forum</a> to ask questions, and for any development related discussion.
  
  Good luck!
 
