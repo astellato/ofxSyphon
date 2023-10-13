@@ -26,33 +26,42 @@
      (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #import <Foundation/Foundation.h>
 #import <OpenGL/OpenGL.h>
 #import <Syphon/SyphonServerBase.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 /*! @name Server Options Dictionary Key Constants */
 /*! @{ */
+
 /*!
  @relates SyphonServerBase
  If this key is matched with a NSNumber with a BOOL value YES, then the server will be invisible to other Syphon users. You are then responsible for passing the NSDictionary returned by serverDescription to processes which require it to create a SyphonClient. Default is NO.
  */
 extern NSString * const SyphonServerOptionIsPrivate;
+
 /*!
  @relates SyphonServerBase
  If this key is matched with a NSNumber with a NSUInteger value greater than zero, the server will, when using the bindToDrawFrameOfSize / unbindAndPublish API, render to an antialiased render buffer with the requested multisample count (via the FBO MSAA and BLIT extensions). Default sample count is 0 should this key be ommited, indicating no antialiased buffers will be used. If the requested sample count is not supported by the GL context, the nearest supported sample count will be used instead. If MSAA is not supported at all, this key will be ignored and the server will render without the antialiasing stage.
  */
 extern NSString * const SyphonServerOptionAntialiasSampleCount;
+
 /*!
  @relates SyphonServerBase
  If this key is matched with a NSNumber with an integer value greater than zero, the server will render to an FBO with a depth buffer attached. The value provided should indicate the desired resolution of the buffer: 16, 24 or 32. The server will always attempt to attach a depth buffer when one is requested, however it may create one of a resolution other than that requested. This has useful effect only when using the bindToDrawFrameOfSize / unbindAndPublish API.
  */
 extern NSString * const SyphonServerOptionDepthBufferResolution;
+
 /*!
  @relates SyphonServerBase
  If this key is matched with a NSNumber with an integer value greater than zero, the server will render to an FBO with a stencil buffer attached. The value provided should indicate the desired resolution of the buffer: 1, 4, 8 or 16. The server will always attempt to attach a stencil buffer when one is requested, however it may create one of a resolution other than that requested.
  */
 extern NSString * const SyphonServerOptionStencilBufferResolution;
+
 /*! @} */
+
 /*!
  @nosubgrouping
  SyphonOpenGLServer handles the publishing of frames from one video source to any number of clients. Frames can be published either by passing in an existing OpenGL texture, or by binding the server's FBO, drawing using OpenGL calls, then calling the unbindAndPublish method.
@@ -61,8 +70,11 @@ extern NSString * const SyphonServerOptionStencilBufferResolution;
  
  It is safe to access instances of this class across threads, except for those calls related to OpenGL: a call to bindToDrawFrameOfSize: must have returned before a call is made to unbindAndPublish, and these methods must be paired and called in order. You should not call the stop method while the FBO is bound.
  */
+
 @class SyphonOpenGLImage;
+
 @interface SyphonOpenGLServer : SyphonServerBase
+
 /** @name Instantiation */
 /** @{ */
 /*!
@@ -76,28 +88,35 @@ extern NSString * const SyphonServerOptionStencilBufferResolution;
  @returns A newly intialized SyphonOpenGLServer. Nil on failure.
 */
 - (instancetype)initWithName:(nullable NSString*)serverName context:(CGLContextObj)context options:(nullable NSDictionary *)options;
+
 /** @} */
+
 /** @name Properties */
 /** @{ */
 /*!
  The CGLContext the server uses for drawing. This may or may not be the context passed in at init.
 */
 @property (readonly) CGLContextObj context;
+
 /*! 
  A string representing the name of the SyphonOpenGLServer.
 */
-@property (nullable, retain) NSString* name;
+@property (nullable, strong) NSString* name;
+
 /*! 
  A dictionary describing the server. Normally you won't need to access this, however if you created the server as private (using SyphonServerOptionIsPrivate) then you must pass this dictionary to any process in which you wish to create a SyphonClient. You should not rely on the presence of any particular keys in this dictionary. The content will always conform to the \<NSCoding\> protocol.
 */
 @property (readonly) NSDictionary* serverDescription;
+
 /*! 
 YES if clients are currently attached, NO otherwise. If you generate frames frequently (for instance on a display-link timer), you may choose to test this and only call publishFrameTexture:textureTarget:imageRegion:textureDimensions:flipped: when clients are attached.
 */
 @property (readonly) BOOL hasClients;
+
 /** @} */
 /** @name Publishing Frames */
 /** @{ */
+
 /*! 
  Publishes the part of the texture described in region of the named texture to clients. The texture is copied and can be safely disposed of or modified once this method has returned. You should not bracket calls to this method with calls to -bindToDrawFrameOfSize: and -unbindAndPublish - they are provided as an alternative to using this method.
  
@@ -112,6 +131,7 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
  @param isFlipped Is the texture flipped?
 */
 - (void)publishFrameTexture:(GLuint)texID textureTarget:(GLenum)target imageRegion:(NSRect)region textureDimensions:(NSSize)size flipped:(BOOL)isFlipped;
+
 /*! 
  Binds an FBO for you to publish a frame of the given dimensions by drawing into the server's context (check it using the context property). If YES is returned, you must pair this with a call to -unbindAndPublish once you have finished drawing. If NO is returned you should abandon drawing and not call -unbindAndPublish.
 
@@ -123,6 +143,7 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
  @returns YES if binding succeeded, NO otherwise.
 */
 - (BOOL)bindToDrawFrameOfSize:(NSSize)size;
+
 /*! 
  Restores any previously bound FBO and publishes the just-drawn frame. This method will flush the GL context (so you don't have to).
 
@@ -131,16 +152,20 @@ YES if clients are currently attached, NO otherwise. If you generate frames freq
  In legacy OpenGL contexts the previous FBO binding is restored. In Core Profile OpenGL contexts the default (0) FBO is restored. No other state is modified.
 */
 - (void)unbindAndPublish;
+
 /*! 
  Returns a SyphonImage representing the current output from the server, valid in the server's CGL context. Call this method every time you wish to access the current server frame. This object has a limited useful lifetime, and may have GPU resources associated with it: you should release it as soon as you are finished drawing with it.
   
  @returns A SyphonImage representing the current output from the server. YOU ARE RESPONSIBLE FOR RELEASING THIS OBJECT when you are finished with it. 
  */
 - (nullable SyphonOpenGLImage *)newFrameImage;
+
 /*! 
  Stops the server instance. Use of this method is optional and releasing all references to the server has the same effect.
 */
 - (void)stop;
+
 /** @} */
 @end
+
 NS_ASSUME_NONNULL_END

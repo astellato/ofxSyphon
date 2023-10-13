@@ -26,10 +26,14 @@
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #import <Syphon/SyphonOpenGLClient.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 DEPRECATED_MSG_ATTRIBUTE("Use SyphonOpenGLClient")
 @interface SyphonClient : SyphonOpenGLClient
 - (id)initWithServerDescription:(NSDictionary *)description context:(CGLContextObj)context options:(nullable NSDictionary *)options newFrameHandler:(nullable void (^)(SyphonClient *client))handler;
 @end
+
 NS_ASSUME_NONNULL_END

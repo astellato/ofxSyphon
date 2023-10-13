@@ -26,63 +26,81 @@
      (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #import <Foundation/Foundation.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 /*! @name Server Description Dictionary Key Constants */
 /*! @{ */
+
 /*!
  @relates SyphonServerDirectory
  The object for this key is a NSString which uniquely identifies a SyphonServer instance. If two dictionaries contain the same string for this key, they represent the same server. This is provided solely to allow you to programmatically determine the identity of a server, and should never be displayed to users in interface elements. This key is not guaranteed to exist in the dictionary.
 */
 extern NSString * const SyphonServerDescriptionUUIDKey;
+
 /*!
  @relates SyphonServerDirectory
  The object for this key is a NSString which is the human-readable non-unique name for the SyphonServer. If this string exists and is non-empty, you should use it in interface elements to identify the server, usually in combination with the name of the server's application (see SyphonServerDescriptionAppNameKey). This key is not guaranteed to exist in the dictionary.
 */
 extern NSString * const SyphonServerDescriptionNameKey;
+
 /*!
  @relates SyphonServerDirectory
  The object for this key is a NSString with the localized name of the application in which the SyphonServer is running. Use this in combination with the server's name (if present) to identify the server in interface elements.  This key is not guaranteed to exist in the dictionary.
 */
 extern NSString * const SyphonServerDescriptionAppNameKey;
+
 /*!
  @relates SyphonServerDirectory
  The object for this key is a NSImage representation of the icon of the application in which the SyphonServer is running. This key is not guaranteed to exist in the dictionary.
 */
 extern NSString * const SyphonServerDescriptionIconKey;
+
 /*! @} */
+
 /*! @name Notifications */
 /*! @{ */
+
 /*!
  @relates SyphonServerDirectory
  A new SyphonServer is available on the system. The notification object is the shared SyphonServerDirectory instance. The user info dictionary describes the server and may contain SyphonServerDescription keys.
 */
 extern NSString * const SyphonServerAnnounceNotification;
+
 /*!
  @relates SyphonServerDirectory
  An existing SyphonServer instance has changed its description. The notification object is the shared SyphonServerDirectory instance. The user info dictionary describes the server and may contain SyphonServerDescription keys.
 */
 extern NSString * const SyphonServerUpdateNotification;
+
 /*!
  @relates SyphonServerDirectory
  A SyphonServer instance will no longer be available.  The notification object is the shared SyphonServerDirectory instance. The user info dictionary describes the retiring server and may contain SyphonServerDescription keys.
 */
 extern NSString * const SyphonServerRetireNotification;
+
 /*! @} */
+
 /*! 
  @nosubgrouping
  SyphonServerDirectory provides information on available Syphon Servers. Servers are represented by dictionaries. Generally you can expect to find some or all of the keys listed in Constants.
-*/
+*/ 
+
 @interface SyphonServerDirectory : NSObject
+
 /*!
  Returns the shared server directory instance. This object is KVO complaint, and can be used to observe changes in server availability, server names and statuses. 
  @returns the shared server instance 
 */
 + (SyphonServerDirectory *)sharedDirectory;
+
 /*!
  NSArray of NSDictionaries that describe (using the keys above) currently available SyphonServer instances on the system.
 */
 @property (readonly) NSArray *servers;
+
 /*! 
  Use this method to discover servers based soley on their name, or application host name. Both parameters are optional. If you do not specify either, all available SyphonServers will be returned.
  @param name Optional (pass nil to not specify) Name of the published SyphonServer, matches the key value for SyphonServerDescriptionNameKey
@@ -90,5 +108,7 @@ extern NSString * const SyphonServerRetireNotification;
  @returns An array of NSDictionaries matching the query you specified. 
 */
 - (NSArray *)serversMatchingName:(nullable NSString *)name appName:(nullable NSString *)appname;
+
 @end
+
 NS_ASSUME_NONNULL_END
