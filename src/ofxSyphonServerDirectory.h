@@ -9,6 +9,7 @@
 
 #include "ofMain.h"
 #include <algorithm>
+#include <ApplicationServices/ApplicationServices.h>
 
 class ofxSyphonServerDirectory;
 
