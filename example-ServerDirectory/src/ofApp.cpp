@@ -60,6 +60,8 @@ void ofApp::draw(){
         client.draw(0, 0);
 
     ofDrawBitmapString("Press any key to cycle through all available Syphon servers.", ofPoint(20, 580));
+    ofDrawBitmapStringHighlight(ofToString("isConnected=")+ofToString(client.isConnected()), 20, 560);
+    ofDrawBitmapStringHighlight(ofToString("isSetup    =")+ofToString(client.isSetup()), 20, 540);
 }
 
 //--------------------------------------------------------------

@@ -17,6 +17,7 @@ class ofxSyphonClient {
 
     void setup();
     bool isSetup();
+    bool isConnected() const;
     
     void set(ofxSyphonServerDescription _server);
     void set(const std::string &_serverName, const std::string &_appName);
