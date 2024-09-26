@@ -59,7 +59,7 @@ void ofApp::draw(){
     if(dir.isValidIndex(dirIdx))
         client.draw(0, 0);
 
-    ofDrawBitmapString("Press any key to cycle through all available Syphon servers.", ofPoint(20, 580));
+    ofDrawBitmapString(ofToString("Press any key to cycle through all available Syphon servers (")+ofToString(dir.size())+").", ofPoint(20, 580));
     ofDrawBitmapStringHighlight(ofToString("isConnected=")+ofToString(client.isConnected()), 20, 560);
     ofDrawBitmapStringHighlight(ofToString("isSetup    =")+ofToString(client.isSetup()), 20, 540);
 }
