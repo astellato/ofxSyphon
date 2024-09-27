@@ -120,6 +120,10 @@ void ofApp::draw(){
 	// Syphon Stuff
     
     mClient.draw(50, 50);    
+
+    ofDrawBitmapString(ofToString("OF server (main output) ")+(mainOutputSyphonServer.hasClients()?"connected to":"disonnected from")+" a Syphon client", 20, 20);
+    ofDrawBitmapString(ofToString("OF server (individual texture) ")+(individualTextureSyphonServer.hasClients()?"connected to":"disonnected from")+" a Syphon client", 20, 35);
+    ofDrawBitmapString(ofToString("OF client (input) ")+(mClient.isConnected()?"connected to":"disonnected from")+" a Syphon server", 50, 50);
     
 	mainOutputSyphonServer.publishScreen();
     
