@@ -9,6 +9,7 @@
 
 #include "ofMain.h"
 #include "ofxSyphonNSObject.hpp"
+#include <CoreFoundation/CoreFoundation.h>
 
 class ofxSyphonServer {
 	public:
