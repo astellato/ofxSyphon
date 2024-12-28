@@ -66,21 +66,13 @@ public:
     ofxSyphonServerDirectory(const ofxSyphonServerDirectory &o) = delete;
     ofxSyphonServerDirectory &operator=(const ofxSyphonServerDirectory &o) = delete;
     
-    //needs to be public because of the nature of CFNotifications.  please do not call this.
-    void handleNotification(CFStringRef name, CFDictionaryRef userInfo);
-	
 private:
 	void update(ofEventArgs& args);
     void refresh(bool isAnnounce);
-    void serverAnnounced();
-    void serverUpdated();
-    void serverRetired();
-    
+	friend void ofxSyphonServerDirectoryAction(ofxSyphonServerDirectory *directory, bool isAnnounce);
     void addObservers();
     void removeObservers();
     
-    bool CFStringRefToString(CFStringRef src, std::string &dest);
-
 	bool bSetup;
     vector<ofxSyphonServerDescription> serverList;
 };

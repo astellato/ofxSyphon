@@ -12,9 +12,21 @@
 
 // CFNotificationCallback implementation
 
-static void notificationHandler(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+static void notificationHandler(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
+{
+	auto directory = static_cast<ofxSyphonServerDirectory *>(observer);
+	// Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.
+	// This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.
+	if([(__bridge NSString*)name isEqualToString:SyphonServerAnnounceNotification]){
+		ofxSyphonServerDirectoryAction(directory, true);
+	} else if([(__bridge NSString*)name isEqualToString:SyphonServerRetireNotification]){
+		ofxSyphonServerDirectoryAction(directory, false);
+	}
+}
 
-    (static_cast<ofxSyphonServerDirectory *>(observer))->handleNotification(name, userInfo);
+void ofxSyphonServerDirectoryAction(ofxSyphonServerDirectory *directory, bool isAnnounce)
+{
+	directory->refresh(isAnnounce);
 }
 
 // ofxSyphonServerDirectory implementation
@@ -123,29 +135,6 @@ int ofxSyphonServerDirectory::size(){
     return serverList.size();
 }
 
-// Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.  This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.
-void ofxSyphonServerDirectory::handleNotification(CFStringRef name, CFDictionaryRef userInfo){
-    if((__bridge NSString*)name == SyphonServerAnnounceNotification){
-        serverAnnounced();
-    } else if((__bridge NSString*)name == SyphonServerUpdateNotification){
-        serverUpdated();
-    } else if((__bridge NSString*)name == SyphonServerRetireNotification){
-        serverRetired();
-    }
-}
-
-void ofxSyphonServerDirectory::serverAnnounced(){
-    refresh(true);
-}
-
-void ofxSyphonServerDirectory::serverUpdated(){
-    //
-}
-
-void ofxSyphonServerDirectory::serverRetired(){
-    refresh(false);
-}
-
 void ofxSyphonServerDirectory::addObservers(){
     CFNotificationCenterAddObserver
     (
@@ -180,31 +169,4 @@ void ofxSyphonServerDirectory::addObservers(){
 
 void ofxSyphonServerDirectory::removeObservers(){
     CFNotificationCenterRemoveEveryObserver(CFNotificationCenterGetLocalCenter(), this);
-}
-
-bool ofxSyphonServerDirectory::CFStringRefToString(CFStringRef src, std::string &dest){
-    const char *cstr = CFStringGetCStringPtr(src, CFStringGetSystemEncoding());
-    if (!cstr)
-    {
-        CFIndex strLen = CFStringGetMaximumSizeForEncoding(CFStringGetLength(src) + 1,
-                                                           CFStringGetSystemEncoding());
-        char *allocStr = (char*)malloc(strLen);
-        
-        if(!allocStr)
-            return false;
-        
-        if(!CFStringGetCString(src, allocStr, strLen, CFStringGetSystemEncoding()))
-        {
-            free((void*)allocStr);
-            return false;
-        }
-        
-        dest = allocStr;
-        free((void*)allocStr);
-        
-        return true;
-    }
-    
-    dest = cstr;
-    return true;
 }
