@@ -26,21 +26,28 @@
      (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #import <Foundation/Foundation.h>
 #import <OpenGL/OpenGL.h>
 #import <Syphon/SyphonImageBase.h>
+
 NS_ASSUME_NONNULL_BEGIN
-/** 
+
+/**
  SyphonImage represents an image stored as an OpenGL texture of type GL_TEXTURE_RECTANGLE.
  */
+
 @interface SyphonOpenGLImage : SyphonImageBase
+
 /**
  A GLuint representing the texture name. The associated texture is of type GL_TEXTURE_RECTANGLE.
  */
 @property (readonly) GLuint textureName;
+
 /**
  A NSSize representing the dimensions of the texture. The image will fill the texture entirely.
  */
 @property (readonly) NSSize textureSize;
 @end
+
 NS_ASSUME_NONNULL_END
