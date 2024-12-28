@@ -29,6 +29,32 @@ bool ofxSyphonClient::isSetup(){
     return bSetup;
 }
 
+bool ofxSyphonClient::isConnected() const {
+    if(bSetup)
+    {
+        @autoreleasepool {
+            // Simple proposal
+            // Not sure if isClientValid needs some locks
+            // Neither if its OK to change a file within the framework (isClientValid)
+            const bool ret = [(SyphonNameboundClient *)ofxSNOGet(mClient) isClientValid];
+
+            // Alternative using the provided locking API
+            // [(SyphonNameboundClient*)ofxSNOGet(mClient) lockClient];
+            // SyphonOpenGLClient* client = [(SyphonNameboundClient *)ofxSNOGet(mClient) client];
+
+            // bool ret = false;
+            // if(client)
+            // {
+            //     ret = [client isValid];
+            // }
+            // [(SyphonNameboundClient*)ofxSNOGet(mClient) unlockClient];
+
+            return ret;
+        }
+    }
+    return false;
+}
+
 void ofxSyphonClient::set(ofxSyphonServerDescription _server){
     set(_server.serverName, _server.appName);
 }
