@@ -25,13 +25,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		void serverAnnounced(ofxSyphonServerDirectoryEventArgs &arg);
-
 		ofxSyphonServerDirectory serverDir;
 		ofxSyphonClient client;
-		int serverIndex;
 	
 		ofFbo fbo;
-		ofPixels pixels;
 		ofImage image;
 };
