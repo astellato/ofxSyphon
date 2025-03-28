@@ -92,6 +92,11 @@
 	os_unfair_lock_unlock(&_lock);
 }
 
+- (bool)isClientValid
+{
+	return [_client isValid];
+}
+
 - (void)lockClient
 {
 	os_unfair_lock_lock(&_lock);

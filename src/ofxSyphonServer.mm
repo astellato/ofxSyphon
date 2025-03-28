@@ -51,6 +51,17 @@ std::string ofxSyphonServer::getName()
 	return name;
 }
 
+bool ofxSyphonServer::hasClients() const
+{
+	if (mSyphon)
+	{
+		@autoreleasepool {
+			return [(SyphonOpenGLServer *)ofxSNOGet(mSyphon) hasClients];
+		}
+	}
+	return false;
+}
+
 void ofxSyphonServer::publishScreen()
 {
 	int w = ofGetWidth();
