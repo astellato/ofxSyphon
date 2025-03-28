@@ -1,0 +1,547 @@
+{
+	"archiveVersion": "1",
+	"classes": {},
+	"objectVersion": "54",
+	"objects": {
+		"13F4C3F5-06AA-4B40-8541-A5F105FFE638": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonServerDirectory.h",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"191CD6FA2847E21E0085CBB6": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.plist.entitlements",
+			"path": "of.entitlements",
+			"sourceTree": "<group>"
+		},
+		"191EF70929D778A400F35F26": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "folder",
+			"name": "openFrameworks",
+			"path": "../../../libs/openFrameworks",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"19B789C429E5AB4A0082E9B8": {
+			"buildActionMask": "2147483647",
+			"files": [],
+			"inputFileListPaths": [],
+			"inputPaths": [],
+			"isa": "PBXShellScriptBuildPhase",
+			"outputFileListPaths": [],
+			"outputPaths": [],
+			"runOnlyForDeploymentPostprocessing": "0",
+			"shellPath": "/bin/sh",
+			"shellScript": "\"$OF_PATH/scripts/osx/xcode_project.sh\"\n",
+			"showEnvVarsInLog": "0"
+		},
+		"23C3F8E0-A988-4D4A-A289-C8CF1E256C40": {
+			"fileRef": "D7304788-97BD-4767-A47B-0C4A654B4739",
+			"isa": "PBXBuildFile"
+		},
+		"23FDF0AB-5230-4278-A472-D13459A56008": {
+			"children": [
+				"C2E9E5D0-20DA-430F-8B88-438E4FAE7EA3",
+				"638AFB71-3DBE-4104-91A5-C4519A9AD492",
+				"CAB8945D-582A-45F2-8371-5C52FD6F31A5",
+				"A6EE1B57-7174-49D9-A231-C428437D5293",
+				"99BDBC0E-D795-4287-BAA9-93245D621F87",
+				"B39CD3BF-0D92-457D-AB4C-6DE407EE5061",
+				"B739317C-1187-40A7-A178-A7317B1132F0",
+				"13F4C3F5-06AA-4B40-8541-A5F105FFE638",
+				"D7304788-97BD-4767-A47B-0C4A654B4739"
+			],
+			"isa": "PBXGroup",
+			"name": "src",
+			"path": "../../../addons/ofxSyphon/src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"4C687936-D497-4C32-9DD6-FDB1357E270E": {
+			"fileRef": "CAB8945D-582A-45F2-8371-5C52FD6F31A5",
+			"isa": "PBXBuildFile"
+		},
+		"522A7DBF-BA87-45E8-9177-8AE2F9EA3CF6": {
+			"fileRef": "AA234390-4835-446B-AB82-5E5555A526CC",
+			"isa": "PBXBuildFile"
+		},
+		"53763505-4ED5-469E-8C58-CAFF900EE879": {
+			"fileRef": "5CAA0E78-B820-4825-BDBC-89C744C376A8",
+			"isa": "PBXBuildFile"
+		},
+		"5CAA0E78-B820-4825-BDBC-89C744C376A8": {
+			"explicitFileType": "sourcecode.cpp.objcpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "SyphonNameboundClient.m",
+			"path": "../../../addons/ofxSyphon/libs/Syphon/src/SyphonNameboundClient.m",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"638AFB71-3DBE-4104-91A5-C4519A9AD492": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonClient.h",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonClient.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"6779EECE-B596-4B42-B822-34C36A5F0360": {
+			"children": [
+				"8DCDF2BF-2D00-4BD3-9032-2CCF4ADE7D45",
+				"23FDF0AB-5230-4278-A472-D13459A56008"
+			],
+			"isa": "PBXGroup",
+			"name": "ofxSyphon",
+			"path": "../../../addons/ofxSyphon",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"7F897A36-437D-4549-B845-A317614F4198": {
+			"fileRef": "B739317C-1187-40A7-A178-A7317B1132F0",
+			"isa": "PBXBuildFile"
+		},
+		"81E0A1C1-76F0-46CB-823E-F6E26B90F996": {
+			"children": [
+				"AA234390-4835-446B-AB82-5E5555A526CC"
+			],
+			"isa": "PBXGroup",
+			"name": "osx",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"8935C141-FEF1-4B0F-B534-0E2AB9F7CCA1": {
+			"children": [
+				"81E0A1C1-76F0-46CB-823E-F6E26B90F996"
+			],
+			"isa": "PBXGroup",
+			"name": "lib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"8A65D380-552A-4226-B249-739D18A75BB5": {
+			"fileRef": "AA234390-4835-446B-AB82-5E5555A526CC",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"8DCDF2BF-2D00-4BD3-9032-2CCF4ADE7D45": {
+			"children": [
+				"AF07BF77-D8E2-4E8A-AC84-04DA15293983"
+			],
+			"isa": "PBXGroup",
+			"name": "libs",
+			"path": "../../../addons/ofxSyphon/libs",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"99BDBC0E-D795-4287-BAA9-93245D621F87": {
+			"explicitFileType": "sourcecode.cpp.objcpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonNSObject.mm",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonNSObject.mm",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"A4824C89-A548-4EFC-8D4F-E87A239BEFED": {
+			"fileRef": "AA234390-4835-446B-AB82-5E5555A526CC",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"A6EE1B57-7174-49D9-A231-C428437D5293": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonNSObject.hpp",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonNSObject.hpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"AA234390-4835-446B-AB82-5E5555A526CC": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "wrapper.framework",
+			"name": "Syphon.framework",
+			"path": "../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"AF07BF77-D8E2-4E8A-AC84-04DA15293983": {
+			"children": [
+				"EE79A934-1517-4989-B9B6-D547F8ECCE09",
+				"8935C141-FEF1-4B0F-B534-0E2AB9F7CCA1"
+			],
+			"isa": "PBXGroup",
+			"name": "Syphon",
+			"path": "../../../addons/ofxSyphon/libs/Syphon",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"B39CD3BF-0D92-457D-AB4C-6DE407EE5061": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonServer.h",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonServer.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"B739317C-1187-40A7-A178-A7317B1132F0": {
+			"explicitFileType": "sourcecode.cpp.objcpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonServer.mm",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonServer.mm",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"BB4B014C10F69532006C3DED": {
+			"children": [
+				"6779EECE-B596-4B42-B822-34C36A5F0360"
+			],
+			"isa": "PBXGroup",
+			"name": "addons",
+			"path": "../../../addons",
+			"sourceTree": "<group>"
+		},
+		"C2E9E5D0-20DA-430F-8B88-438E4FAE7EA3": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphon.h",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphon.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"CAB8945D-582A-45F2-8371-5C52FD6F31A5": {
+			"explicitFileType": "sourcecode.cpp.objcpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonClient.mm",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonClient.mm",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"D7304788-97BD-4767-A47B-0C4A654B4739": {
+			"explicitFileType": "sourcecode.cpp.objcpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSyphonServerDirectory.mm",
+			"path": "../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.mm",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E42962A92163ECCD00A6A9E2": {
+			"alwaysOutOfDate": "1",
+			"buildActionMask": "2147483647",
+			"files": [],
+			"inputPaths": [],
+			"isa": "PBXShellScriptBuildPhase",
+			"name": "Run Script — Compile OF",
+			"outputPaths": [],
+			"runOnlyForDeploymentPostprocessing": "0",
+			"shellPath": "/bin/sh",
+			"shellScript": "echo \"💾 Compiling Openframeworks\"\nxcodebuild -project \"$OF_PATH/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj\" -target openFrameworks -configuration \"${CONFIGURATION}\"  CLANG_CXX_LANGUAGE_STANDARD=$CLANG_CXX_LANGUAGE_STANDARD MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET GCC_PREPROCESSOR_DEFINITIONS=$USER_PREPROCESSOR_DEFINITIONS\n",
+			"showEnvVarsInLog": "0"
+		},
+		"E4A5B60F29BAAAE400C2D356": {
+			"buildActionMask": "2147483647",
+			"dstPath": "",
+			"dstSubfolderSpec": "6",
+			"files": [],
+			"isa": "PBXCopyFilesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B4A0A3A1720003C02F2": {
+			"children": [
+				"191CD6FA2847E21E0085CBB6",
+				"E4B6FCAD0C3E899E008CF71C",
+				"E4EB6923138AFD0F00A09F29",
+				"E4B69E1C0A3A1BDC003C02F2",
+				"191EF70929D778A400F35F26",
+				"BB4B014C10F69532006C3DED",
+				"E4B69B5B0A3A1756003C02F2"
+			],
+			"isa": "PBXGroup",
+			"sourceTree": "<group>"
+		},
+		"E4B69B4C0A3A1720003C02F2": {
+			"attributes": {
+				"LastUpgradeCheck": "0600"
+			},
+			"buildConfigurationList": "E4B69B4D0A3A1720003C02F2",
+			"compatibilityVersion": "Xcode 3.2",
+			"developmentRegion": "en",
+			"hasScannedForEncodings": "0",
+			"isa": "PBXProject",
+			"knownRegions": [
+				"en",
+				"Base"
+			],
+			"mainGroup": "E4B69B4A0A3A1720003C02F2",
+			"productRefGroup": "E4B69B4A0A3A1720003C02F2",
+			"projectDirPath": "",
+			"projectRoot": "",
+			"targets": [
+				"E4B69B5A0A3A1756003C02F2"
+			]
+		},
+		"E4B69B4D0A3A1720003C02F2": {
+			"buildConfigurations": [
+				"E4B69B4E0A3A1720003C02F2",
+				"E4B69B4F0A3A1720003C02F2"
+			],
+			"defaultConfigurationIsVisible": "0",
+			"defaultConfigurationName": "Release",
+			"isa": "XCConfigurationList"
+		},
+		"E4B69B4E0A3A1720003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"CODE_SIGN_ENTITLEMENTS": "of.entitlements",
+				"COPY_PHASE_STRIP": "NO",
+				"ENABLE_TESTABILITY": "YES",
+				"GCC_OPTIMIZATION_LEVEL": "0",
+				"GCC_WARN_UNUSED_VARIABLE": "NO",
+				"HEADER_SEARCH_PATHS": [
+					"$(OF_CORE_HEADERS)",
+					"src"
+				],
+				"OTHER_CPLUSPLUSFLAGS": "-D__MACOSX_CORE__"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Debug"
+		},
+		"E4B69B4F0A3A1720003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"CODE_SIGN_ENTITLEMENTS": "of.entitlements",
+				"COPY_PHASE_STRIP": "YES",
+				"GCC_OPTIMIZATION_LEVEL": "3",
+				"GCC_UNROLL_LOOPS": "YES",
+				"HEADER_SEARCH_PATHS": [
+					"$(OF_CORE_HEADERS)",
+					"src"
+				],
+				"OTHER_CPLUSPLUSFLAGS": "-D__MACOSX_CORE__"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Release"
+		},
+		"E4B69B580A3A1756003C02F2": {
+			"buildActionMask": "2147483647",
+			"files": [
+				"E4B69E200A3A1BDC003C02F2",
+				"E4B69E210A3A1BDC003C02F2",
+				"53763505-4ED5-469E-8C58-CAFF900EE879",
+				"4C687936-D497-4C32-9DD6-FDB1357E270E",
+				"EED1A55A-6DC2-40E2-8DFB-D81DE763F59E",
+				"7F897A36-437D-4549-B845-A317614F4198",
+				"23C3F8E0-A988-4D4A-A289-C8CF1E256C40"
+			],
+			"isa": "PBXSourcesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B590A3A1756003C02F2": {
+			"buildActionMask": "2147483647",
+			"files": [
+				"522A7DBF-BA87-45E8-9177-8AE2F9EA3CF6"
+			],
+			"isa": "PBXFrameworksBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B5A0A3A1756003C02F2": {
+			"buildConfigurationList": "E4B69B5F0A3A1757003C02F2",
+			"buildPhases": [
+				"E42962A92163ECCD00A6A9E2",
+				"E4B69B580A3A1756003C02F2",
+				"E4B69B590A3A1756003C02F2",
+				"E4C2427710CC5ABF004149E2",
+				"E4A5B60F29BAAAE400C2D356",
+				"19B789C429E5AB4A0082E9B8"
+			],
+			"buildRules": [],
+			"dependencies": [],
+			"isa": "PBXNativeTarget",
+			"name": "example-Image",
+			"productName": "myOFApp",
+			"productReference": "E4B69B5B0A3A1756003C02F2",
+			"productType": "com.apple.product-type.application"
+		},
+		"E4B69B5B0A3A1756003C02F2": {
+			"explicitFileType": "wrapper.application",
+			"includeInIndex": "0",
+			"isa": "PBXFileReference",
+			"path": "example-ImageDebug.app",
+			"sourceTree": "BUILT_PRODUCTS_DIR"
+		},
+		"E4B69B5F0A3A1757003C02F2": {
+			"buildConfigurations": [
+				"E4B69B600A3A1757003C02F2",
+				"E4B69B610A3A1757003C02F2"
+			],
+			"defaultConfigurationIsVisible": "0",
+			"defaultConfigurationName": "Release",
+			"isa": "XCConfigurationList"
+		},
+		"E4B69B600A3A1757003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"ARCHS": "$(ARCHS_STANDARD)",
+				"COPY_PHASE_STRIP": "NO",
+				"FRAMEWORK_SEARCH_PATHS": [
+					"$(inherited)",
+					"../../../addons/ofxSyphon/libs/Syphon/lib/osx"
+				],
+				"GCC_DYNAMIC_NO_PIC": "NO",
+				"HEADER_SEARCH_PATHS": [
+					"$(OF_CORE_HEADERS)",
+					"src",
+					"src",
+					"../../../addons/ofxSyphon/libs",
+					"../../../addons/ofxSyphon/libs/Syphon",
+					"../../../addons/ofxSyphon/libs/Syphon/lib",
+					"../../../addons/ofxSyphon/libs/Syphon/lib/osx",
+					"../../../addons/ofxSyphon/libs/Syphon/src",
+					"../../../addons/ofxSyphon/src"
+				],
+				"LIBRARY_SEARCH_PATHS": "$(inherited)",
+				"OTHER_CFLAGS": [
+					"-F../../../addons/ofxSyphon/libs/Syphon/lib/osx/"
+				],
+				"OTHER_LDFLAGS": [
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+					"$(LIB_OF_DEBUG)",
+					"-F../../../addons/ofxSyphon/libs/Syphon/lib/osx/",
+					"-framework",
+					"Syphon"
+				]
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Debug"
+		},
+		"E4B69B610A3A1757003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"ARCHS": "$(ARCHS_STANDARD)",
+				"COPY_PHASE_STRIP": "YES",
+				"FRAMEWORK_SEARCH_PATHS": [
+					"$(inherited)",
+					"../../../addons/ofxSyphon/libs/Syphon/lib/osx"
+				],
+				"HEADER_SEARCH_PATHS": [
+					"$(OF_CORE_HEADERS)",
+					"src",
+					"src",
+					"../../../addons/ofxSyphon/libs",
+					"../../../addons/ofxSyphon/libs/Syphon",
+					"../../../addons/ofxSyphon/libs/Syphon/lib",
+					"../../../addons/ofxSyphon/libs/Syphon/lib/osx",
+					"../../../addons/ofxSyphon/libs/Syphon/src",
+					"../../../addons/ofxSyphon/src"
+				],
+				"LIBRARY_SEARCH_PATHS": "$(inherited)",
+				"OTHER_CFLAGS": [
+					"-F../../../addons/ofxSyphon/libs/Syphon/lib/osx/"
+				],
+				"OTHER_LDFLAGS": [
+					"$(OF_CORE_LIBS)",
+					"$(OF_CORE_FRAMEWORKS)",
+					"$(LIB_OF)",
+					"-F../../../addons/ofxSyphon/libs/Syphon/lib/osx/",
+					"-framework",
+					"Syphon"
+				],
+				"baseConfigurationReference": "E4EB6923138AFD0F00A09F29"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Release"
+		},
+		"E4B69E1C0A3A1BDC003C02F2": {
+			"children": [
+				"E4B69E1D0A3A1BDC003C02F2",
+				"E4B69E1E0A3A1BDC003C02F2",
+				"E4B69E1F0A3A1BDC003C02F2"
+			],
+			"isa": "PBXGroup",
+			"path": "src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1D0A3A1BDC003C02F2": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "sourcecode.cpp.cpp",
+			"name": "main.cpp",
+			"path": "src/main.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1E0A3A1BDC003C02F2": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofApp.cpp",
+			"path": "src/ofApp.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1F0A3A1BDC003C02F2": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "sourcecode.c.h",
+			"name": "ofApp.h",
+			"path": "src/ofApp.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E200A3A1BDC003C02F2": {
+			"fileRef": "E4B69E1D0A3A1BDC003C02F2",
+			"isa": "PBXBuildFile"
+		},
+		"E4B69E210A3A1BDC003C02F2": {
+			"fileRef": "E4B69E1E0A3A1BDC003C02F2",
+			"isa": "PBXBuildFile"
+		},
+		"E4B6FCAD0C3E899E008CF71C": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.plist.xml",
+			"path": "openFrameworks-Info.plist",
+			"sourceTree": "<group>"
+		},
+		"E4C2427710CC5ABF004149E2": {
+			"buildActionMask": "2147483647",
+			"dstPath": "",
+			"dstSubfolderSpec": "10",
+			"files": [
+				"A4824C89-A548-4EFC-8D4F-E87A239BEFED"
+			],
+			"isa": "PBXCopyFilesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4EB6923138AFD0F00A09F29": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.xcconfig",
+			"path": "Project.xcconfig",
+			"sourceTree": "<group>"
+		},
+		"EE79A934-1517-4989-B9B6-D547F8ECCE09": {
+			"children": [
+				"FC14F8BF-2383-4CF2-8BA2-ED2BD58E9818",
+				"5CAA0E78-B820-4825-BDBC-89C744C376A8"
+			],
+			"isa": "PBXGroup",
+			"name": "src",
+			"path": "../../../addons/ofxSyphon/libs/Syphon/src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EED1A55A-6DC2-40E2-8DFB-D81DE763F59E": {
+			"fileRef": "99BDBC0E-D795-4287-BAA9-93245D621F87",
+			"isa": "PBXBuildFile"
+		},
+		"FC14F8BF-2383-4CF2-8BA2-ED2BD58E9818": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "SyphonNameboundClient.h",
+			"path": "../../../addons/ofxSyphon/libs/Syphon/src/SyphonNameboundClient.h",
+			"sourceTree": "SOURCE_ROOT"
+		}
+	},
+	"openFrameworksProjectGeneratorVersion": "21",
+	"rootObject": "E4B69B4C0A3A1720003C02F2"
+}
