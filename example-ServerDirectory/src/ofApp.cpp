@@ -6,18 +6,14 @@ void ofApp::setup(){
     ofSetWindowShape(800, 600);
     ofSetFrameRate(60);
 
+    //register for our directory's callbacks
+    ofAddListener(dir.events.serverAnnounced, this, &ofApp::serverAnnounced);
+    ofAddListener(dir.events.serverRetired, this, &ofApp::serverRetired);
+    
     //setup our directory
     dir.setup();
     //setup our client
     client.setup();
-
-    //register for our directory's callbacks
-    ofAddListener(dir.events.serverAnnounced, this, &ofApp::serverAnnounced);
-    // not yet implemented
-    //ofAddListener(dir.events.serverUpdated, this, &ofApp::serverUpdated);
-    ofAddListener(dir.events.serverRetired, this, &ofApp::serverRetired);
-
-    dirIdx = -1;
 }
 
 //these are our directory's callbacks
