@@ -32,37 +32,38 @@ void ofApp::draw(){
     if(serverDir.isValidIndex(0)){
         
         // always lock/unlock around direct texture access
-        client.lockTexture();
-        
-        // Setup our FBO to match the client
-        if (client.getTexture().isAllocated())
+        if (client.lockTexture())
         {
-            ofTextureData &texData = client.getTexture().getTextureData();
-            // reallocate if the incoming texture size is different from our fbo & image
-            if((texData.width != 0 && texData.height != 0) &&
-               (fbo.getWidth() != texData.width || fbo.getHeight() != texData.height)){
-                fbo.allocate(texData.width, texData.height);
+            // Setup our FBO to match the client
+            if (client.getTexture().isAllocated())
+            {
+                ofTextureData &texData = client.getTexture().getTextureData();
+                // reallocate if the incoming texture size is different from our fbo & image
+                if((texData.width != 0 && texData.height != 0) &&
+                   (fbo.getWidth() != texData.width || fbo.getHeight() != texData.height)){
+                    fbo.allocate(texData.width, texData.height);
+                }
             }
-        }
-    
-        // render Syphon client texture into the FBO
-        ofSetColor(255);
-        ofSetRectMode(OF_RECTMODE_CORNER);
-            
-        fbo.begin();
-            
-        ofBackground(0, 0, 0, 0);
-        ofEnableAlphaBlending();
-        client.draw(0, 0);
-            
-        fbo.end();
+        
+            // render Syphon client texture into the FBO
+            ofSetColor(255);
+            ofSetRectMode(OF_RECTMODE_CORNER);
+                
+            fbo.begin();
+                
+            ofBackground(0, 0, 0, 0);
+            ofEnableAlphaBlending();
+            client.draw(0, 0);
+                
+            fbo.end();
 
-        client.unlockTexture();
+            client.unlockTexture();
             
-        // read the pixels in the FBO into our local ofImage's pixels
-        fbo.readToPixels(image.getPixels());
-        // we manually loaded pixel data into the image, so update the image texture here
-        image.update();
+            // read the pixels in the FBO into our local ofImage's pixels
+            fbo.readToPixels(image.getPixels());
+            // we manually loaded pixel data into the image, so update the image texture here
+            image.update();
+        }
     }
 	
 	// render the image copy

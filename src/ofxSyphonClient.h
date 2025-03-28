@@ -35,7 +35,8 @@ class ofxSyphonClient {
     float getWidth();
     float getHeight();
 
-    void lockTexture();
+    // check return from lockTexture() before proceeding, returns false is the client has no texture
+    bool lockTexture();
     void unlockTexture();
     
     // calls lockTexture() then getTexture().bind()
