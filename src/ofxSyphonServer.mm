@@ -85,7 +85,7 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     }
     else
     {
-		cout<<"ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
+		std::cout<<"ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
 	}
 }
 
