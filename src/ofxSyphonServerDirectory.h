@@ -65,11 +65,9 @@ public:
     // copy and assignment are not supported
     ofxSyphonServerDirectory(const ofxSyphonServerDirectory &o) = delete;
     ofxSyphonServerDirectory &operator=(const ofxSyphonServerDirectory &o) = delete;
-    
-    //needs to be public because of the nature of CFNotifications.  please do not call this.
-    void handleNotification(CFStringRef name, CFDictionaryRef userInfo);
 	
 private:
+    friend void handleNotification(const void *, void *);
 	void update(ofEventArgs& args);
     void refresh(bool isAnnounce);
     void serverAnnounced();
@@ -78,8 +76,6 @@ private:
     
     void addObservers();
     void removeObservers();
-    
-    bool CFStringRefToString(CFStringRef src, std::string &dest);
 
 	bool bSetup;
     vector<ofxSyphonServerDescription> serverList;
