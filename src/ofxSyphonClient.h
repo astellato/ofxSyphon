@@ -7,9 +7,9 @@
  *  http://syphon.v002.info/license.php
  */
 
-#include "ofMain.h"
 #include "ofxSyphon.h"
 #include "ofxSyphonNSObject.hpp"
+#include "ofTexture.h"
 
 class ofxSyphonClient {
 	public:

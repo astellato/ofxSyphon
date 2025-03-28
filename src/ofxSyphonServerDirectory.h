@@ -7,9 +7,11 @@
 //
 //
 
-#include "ofMain.h"
 #include <algorithm>
 #include <ApplicationServices/ApplicationServices.h>
+#include <string>
+#include <vector>
+#include "ofEvents.h"
 
 class ofxSyphonServerDirectory;
 
@@ -36,7 +38,7 @@ public:
 
 class ofxSyphonServerDirectoryEventArgs : public ofEventArgs {
 public:
-	vector<ofxSyphonServerDescription> servers;
+	std::vector<ofxSyphonServerDescription> servers;
 };
 
 class ofxSyphonServerDirectoryEvents {
@@ -60,7 +62,7 @@ public:
     bool serverExists(const ofxSyphonServerDescription &_server);
     const ofxSyphonServerDescription& getDescription(int _idx);
     
-    const vector<ofxSyphonServerDescription>& getServerList();
+    const std::vector<ofxSyphonServerDescription>& getServerList();
 	ofxSyphonServerDirectoryEvents events;
     
     // copy and assignment are not supported
@@ -83,5 +85,5 @@ private:
     bool CFStringRefToString(CFStringRef src, std::string &dest);
 
 	bool bSetup;
-    vector<ofxSyphonServerDescription> serverList;
+	std::vector<ofxSyphonServerDescription> serverList;
 };

@@ -52,7 +52,7 @@ bool ofxSyphonServerDirectory::isSetup(){
 
 // Our workaround for the incomplete CFNotification.  There's just no love for Core Foundation anymore.
 void ofxSyphonServerDirectory::refresh(bool isAnnounce){
-    vector<ofxSyphonServerDescription> eventArgs;
+    std::vector<ofxSyphonServerDescription> eventArgs;
 
     @autoreleasepool {
         for(NSDictionary* serverDescription in [[SyphonServerDirectory sharedDirectory] servers])
@@ -79,9 +79,9 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
     }
     
     if(!isAnnounce){
-        vector<ofxSyphonServerDescription> foundServers = eventArgs;
+       std::vector<ofxSyphonServerDescription> foundServers = eventArgs;
         eventArgs.clear();
-        for(vector<ofxSyphonServerDescription>::iterator it = serverList.begin(); it != serverList.end(); ++it){
+        for(std::vector<ofxSyphonServerDescription>::iterator it = serverList.begin(); it != serverList.end(); ++it){
             if(std::find(foundServers.begin(), foundServers.end(), ofxSyphonServerDescription(it->serverName, it->appName)) == foundServers.end()){
                 eventArgs.push_back(ofxSyphonServerDescription(it->serverName, it->appName));
                 //cout<<"Removing server: "<<it->serverName<<" appName: "<<it->appName<<"\n";
@@ -115,12 +115,12 @@ const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _
     return serverList.at(_idx);
 }
 
-const vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
+const std::vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
     return serverList;
 }
 
 int ofxSyphonServerDirectory::size(){
-    return serverList.size();
+    return (int)serverList.size();
 }
 
 // Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.  This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.

@@ -7,8 +7,10 @@
  *  http://syphon.v002.info/license.php
  */
 
-#include "ofMain.h"
 #include "ofxSyphonNSObject.hpp"
+#include <string>
+class ofTexture;
+#include "ofGLUtils.h"
 
 class ofxSyphonServer {
 	public:
