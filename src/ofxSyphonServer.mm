@@ -12,6 +12,7 @@
 #import <string>
 #import "ofAppRunner.h"
 #import "ofTexture.h"
+#include "ofLog.h"
 
 ofxSyphonServer::ofxSyphonServer()
 {
@@ -85,7 +86,7 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     }
     else
     {
-		std::cout<<"ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
+		ofLog() << "ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
 	}
 }
 

@@ -8,13 +8,12 @@
  */
 
 #include "ofxSyphonClient.h"
+#include "ofLog.h"
 #import <Syphon/Syphon.h>
 #import "SyphonNameboundClient.h"
 
-ofxSyphonClient::ofxSyphonClient() :
-width(0), height(0), bSetup(false)
+ofxSyphonClient::ofxSyphonClient()
 {
-
 }
 
 void ofxSyphonClient::setup()
@@ -118,7 +117,9 @@ void ofxSyphonClient::lockTexture()
         }
     }
     else
-        std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot lock.\n";
+    {
+        ofLog() << "ofxSyphonClient is not setup, or is not properly connected to server.  Cannot lock.\n";
+    }
 }
 
 void ofxSyphonClient::unlockTexture()
@@ -131,7 +132,7 @@ void ofxSyphonClient::unlockTexture()
         }
     }
     else
-        std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unlock.\n";
+        ofLog() << "ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unlock.\n";
 }
 
 void ofxSyphonClient::bind()

@@ -54,7 +54,6 @@ class ofxSyphonClient {
 	ofxSyphonNSObject mClient;
     ofxSyphonNSObject latestImage;
 	ofTexture mTex;
-	int width, height;
-	bool bSetup;
+	bool bSetup = false;
     std::string appName, serverName;
 };
