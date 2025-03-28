@@ -120,7 +120,7 @@ void ofxSyphonClient::bind()
         }
     }
     else
-		cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot bind.\n";
+		std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot bind.\n";
 }
 
 void ofxSyphonClient::unbind()
@@ -134,7 +134,7 @@ void ofxSyphonClient::unbind()
         }
     }
     else
-		cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unbind.\n";
+		std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unbind.\n";
 }
 
 void ofxSyphonClient::draw(float x, float y, float w, float h)

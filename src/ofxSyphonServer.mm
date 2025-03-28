@@ -9,6 +9,9 @@
 
 #include "ofxSyphonServer.h"
 #import <Syphon/Syphon.h>
+#import <string>
+#import "ofAppRunner.h"
+#import "ofTexture.h"
 
 ofxSyphonServer::ofxSyphonServer()
 {
