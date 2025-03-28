@@ -98,7 +98,8 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
         }
     }
     
-    if(!isAnnounce){
+    if(!isAnnounce)
+    {
        std::vector<ofxSyphonServerDescription> foundServers = eventArgs;
         eventArgs.clear();
         for(std::vector<ofxSyphonServerDescription>::iterator it = serverList.begin(); it != serverList.end(); ++it){
@@ -109,6 +110,12 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
         }
         serverList = foundServers;
     }
+    else if (isAnnounce && eventArgs.empty())
+    {
+        // nothing to do
+        return;
+    }
+
     ofxSyphonServerDirectoryEventArgs args;
     args.servers = eventArgs;
     if(isAnnounce){

@@ -88,7 +88,7 @@ const std::string& ofxSyphonClient::getServerName(){
     return serverName;
 }
 
-void ofxSyphonClient::bind()
+void ofxSyphonClient::lockTexture()
 {
     if(bSetup)
     {
@@ -115,54 +115,73 @@ void ofxSyphonClient::bind()
    #endif
            mTex.texData.bFlipTexture = YES;
            mTex.texData.bAllocated = YES;
-           
-           mTex.bind();
         }
     }
     else
-		std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot bind.\n";
+        std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot lock.\n";
 }
 
-void ofxSyphonClient::unbind()
+void ofxSyphonClient::unlockTexture()
 {
     if(bSetup)
     {
-        mTex.unbind();
         @autoreleasepool {
             [(SyphonNameboundClient*)ofxSNOGet(mClient) unlockClient];
             latestImage = ofxSyphonNSObject();
         }
     }
     else
-		std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unbind.\n";
+        std::cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unlock.\n";
+}
+
+void ofxSyphonClient::bind()
+{
+    if (bSetup)
+    {
+        lockTexture();
+        mTex.bind();
+    }
+}
+
+void ofxSyphonClient::unbind()
+{
+    if (bSetup)
+    {
+        unlockTexture();
+        mTex.unbind();
+    }
 }
 
 void ofxSyphonClient::draw(float x, float y, float w, float h)
 {
-    this->bind();
+    lockTexture();
+    mTex.bind();
     
     mTex.draw(x, y, w, h);
     
-    this->unbind();
+    mTex.unbind();
+    unlockTexture();
 }
 
 void ofxSyphonClient::draw(float x, float y)
 {
-	this->draw(x, y, mTex.texData.width, mTex.texData.height);
+	draw(x, y, mTex.texData.width, mTex.texData.height);
 }
 
 void ofxSyphonClient::drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh)
 {
-    this->bind();
+    lockTexture();
+    mTex.bind();
     
     mTex.drawSubsection(x, y, w, h, sx, sy, sw, sh);
     
-    this->unbind();
+    mTex.unbind();
+    unlockTexture();
 }
 
 void ofxSyphonClient::drawSubsection(float x, float y, float sx, float sy, float sw, float sh)
 {
-	this->drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
+	drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
 }
 
 float ofxSyphonClient::getWidth()

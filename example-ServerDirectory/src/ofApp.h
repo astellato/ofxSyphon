@@ -26,5 +26,5 @@ class ofApp : public ofBaseApp{
 
         ofxSyphonServerDirectory dir;
         ofxSyphonClient client;
-        int dirIdx;
+        int dirIdx = -1;
 };
