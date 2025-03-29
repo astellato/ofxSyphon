@@ -158,8 +158,8 @@ void ofxSyphonClient::unbind()
 {
     if (bSetup && latestImage)
     {
-        unlockTexture();
         mTex.unbind();
+        unlockTexture();
     }
 }
 
