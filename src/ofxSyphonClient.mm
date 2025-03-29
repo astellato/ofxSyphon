@@ -24,11 +24,13 @@ void ofxSyphonClient::setup()
 	bSetup = true;
 }
 
-bool ofxSyphonClient::isSetup(){
+bool ofxSyphonClient::isSetup() const
+{
     return bSetup;
 }
 
-void ofxSyphonClient::set(ofxSyphonServerDescription _server){
+void ofxSyphonClient::set(const ofxSyphonServerDescription &_server)
+{
     set(_server.serverName, _server.appName);
 }
 
@@ -79,11 +81,13 @@ void ofxSyphonClient::setServerName(const std::string &_serverName)
     }
 }
 
-const std::string& ofxSyphonClient::getApplicationName(){
+const std::string& ofxSyphonClient::getApplicationName() const
+{
     return appName;
 }
 
-const std::string& ofxSyphonClient::getServerName(){
+const std::string& ofxSyphonClient::getServerName() const
+{
     return serverName;
 }
 
@@ -215,12 +219,12 @@ void ofxSyphonClient::drawSubsection(float x, float y, float sx, float sy, float
     }
 }
 
-float ofxSyphonClient::getWidth()
+float ofxSyphonClient::getWidth() const
 {
 	return mTex.texData.width;
 }
 
-float ofxSyphonClient::getHeight()
+float ofxSyphonClient::getHeight() const
 {
 	return mTex.texData.height;
 }

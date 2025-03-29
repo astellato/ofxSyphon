@@ -52,7 +52,8 @@ ofxSyphonServerDirectory::~ofxSyphonServerDirectory()
 	}
 }
 
-bool ofxSyphonServerDirectory::isValidIndex(int _idx){
+bool ofxSyphonServerDirectory::isValidIndex(int _idx) const
+{
     return (_idx < serverList.size());
 }
 
@@ -66,7 +67,8 @@ void ofxSyphonServerDirectory::setup ()
 	}
 }
 
-bool ofxSyphonServerDirectory::isSetup(){
+bool ofxSyphonServerDirectory::isSetup() const
+{
     return bSetup;
 }
 
@@ -125,7 +127,8 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
     }
 }
 
-bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_server){
+bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_server) const
+{
     for(auto& s: serverList){
         if(s == _server)
             return true;
@@ -134,19 +137,23 @@ bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_s
     return false;
 }
 
-bool ofxSyphonServerDirectory::serverExists(const std::string &_serverName, const std::string &_appName){
+bool ofxSyphonServerDirectory::serverExists(const std::string &_serverName, const std::string &_appName) const
+{
     return serverExists(ofxSyphonServerDescription(_serverName, _appName));
 }
 
-const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx){
+const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx) const
+{
     return serverList.at(_idx);
 }
 
-const std::vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
+const std::vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList() const
+{
     return serverList;
 }
 
-int ofxSyphonServerDirectory::size(){
+int ofxSyphonServerDirectory::size() const
+{
     return (int)serverList.size();
 }
 

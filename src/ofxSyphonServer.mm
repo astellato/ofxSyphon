@@ -36,7 +36,7 @@ void ofxSyphonServer::setName(const std::string &n)
     }
 }
 
-std::string ofxSyphonServer::getName()
+std::string ofxSyphonServer::getName() const
 {
 	std::string name;
 	if (mSyphon)

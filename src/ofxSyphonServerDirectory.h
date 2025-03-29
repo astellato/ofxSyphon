@@ -53,15 +53,15 @@ public:
 	~ofxSyphonServerDirectory();
 	
     void setup();
-    bool isSetup();
-    int size();
+    bool isSetup() const;
+    int size() const;
 
-    bool isValidIndex(int _idx);
-    bool serverExists(const std::string &_serverName, const std::string &_appName);
-    bool serverExists(const ofxSyphonServerDescription &_server);
-    const ofxSyphonServerDescription& getDescription(int _idx);
+    bool isValidIndex(int _idx) const;
+    bool serverExists(const std::string &_serverName, const std::string &_appName) const;
+    bool serverExists(const ofxSyphonServerDescription &_server) const;
+    const ofxSyphonServerDescription& getDescription(int _idx) const;
     
-    const std::vector<ofxSyphonServerDescription>& getServerList();
+    const std::vector<ofxSyphonServerDescription>& getServerList() const;
 	ofxSyphonServerDirectoryEvents events;
     
     // copy and assignment are not supported

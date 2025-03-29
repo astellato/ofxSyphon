@@ -16,24 +16,24 @@ class ofxSyphonClient {
 	ofxSyphonClient();
 
     void setup();
-    bool isSetup();
+    bool isSetup() const;
     
-    void set(ofxSyphonServerDescription _server);
+    void set(const ofxSyphonServerDescription &_server);
     void set(const std::string &_serverName, const std::string &_appName);
     
     void setApplicationName(const std::string &_appName);
     void setServerName(const std::string &_serverName);
     
-    const std::string& getApplicationName();
-    const std::string& getServerName();
+    const std::string& getApplicationName() const;
+    const std::string& getServerName() const;
     
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);
     void drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh);
     void drawSubsection(float x, float y, float sx, float sy, float sw, float sh);
 
-    float getWidth();
-    float getHeight();
+    float getWidth() const;
+    float getHeight() const;
 
     // check return from lockTexture() before proceeding, returns false is the client has no texture
     bool lockTexture();

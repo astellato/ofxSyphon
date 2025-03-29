@@ -16,7 +16,7 @@ class ofxSyphonServer {
 	public:
 	ofxSyphonServer();
 	void setName (const std::string &n);
-	std::string getName();
+	std::string getName() const;
 	void publishScreen();
     void publishTexture(ofTexture* inputTexture);
     void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
