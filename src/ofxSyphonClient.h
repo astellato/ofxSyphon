@@ -17,16 +17,16 @@ class ofxSyphonClient {
 
     void setup();
     bool isSetup() const;
-
+    
     void set(const ofxSyphonServerDescription &_server);
     void set(const std::string &_serverName, const std::string &_appName);
-
+    
     void setApplicationName(const std::string &_appName);
     void setServerName(const std::string &_serverName);
-
+    
     const std::string& getApplicationName() const;
     const std::string& getServerName() const;
-
+    
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);
     void drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh);
@@ -38,21 +38,21 @@ class ofxSyphonClient {
     // check return from lockTexture() before proceeding, returns false is the client has no texture
     bool lockTexture();
     void unlockTexture();
-
+    
     // calls lockTexture() then getTexture().bind()
-	[[deprecated("Use getTexture().bind()")]]
-	void bind();
+    [[deprecated("Use getTexture().bind()")]]
+    void bind();
     // calls getTexture().unbind() then unlockTexture()
-	[[deprecated("Use getTexture().unbind()")]]
-	void unbind();
-
+    [[deprecated("Use getTexture().unbind()")]]
+    void unbind();
+    
     /*
      To use the texture with getTexture()
      you must surround it with lockTexture() and
      unlockTexture() functions */
-
+    
     ofTexture& getTexture();
-
+    
 	protected:
 	ofxSyphonNSObject mClient;
     ofxSyphonNSObject latestImage;
