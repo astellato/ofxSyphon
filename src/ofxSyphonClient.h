@@ -40,9 +40,11 @@ class ofxSyphonClient {
     void unlockTexture();
     
     // calls lockTexture() then getTexture().bind()
-    OF_DEPRECATED_MSG("Use getTexture().bind()", void bind());
+    [[deprecated("Use getTexture().bind()")]]
+    void bind();
     // calls getTexture().unbind() then unlockTexture()
-    OF_DEPRECATED_MSG("Use getTexture().unbind()", void unbind());
+    [[deprecated("Use getTexture().unbind()")]]
+    void unbind();
     
     /*
      To use the texture with getTexture()
