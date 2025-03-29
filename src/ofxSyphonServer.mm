@@ -86,7 +86,7 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     }
     else
     {
-		ofLog() << "ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
+		ofLogError("ofxSyphonServer") << "ofxSyphonServer texture is not properly backed.  Cannot draw.";
 	}
 }
 

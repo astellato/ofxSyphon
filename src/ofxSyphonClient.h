@@ -49,7 +49,7 @@ class ofxSyphonClient {
      you must surround it with lockTexture() and
      unlockTexture() functions */
     
-    ofTexture& getTexture() {return mTex;}
+    ofTexture& getTexture();
     
 	protected:
 	ofxSyphonNSObject mClient;

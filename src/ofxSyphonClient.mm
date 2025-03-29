@@ -129,7 +129,7 @@ bool ofxSyphonClient::lockTexture()
     }
     else
     {
-        ofLog() << "ofxSyphonClient is not setup, or is not properly connected to server.  Cannot lock.\n";
+        ofLogError("ofxSyphonClient") << "ofxSyphonClient is not setup.  Cannot lock";
     }
     return latestImage;
 }
@@ -146,8 +146,6 @@ void ofxSyphonClient::unlockTexture()
             }
         }
     }
-    else
-        ofLog() << "ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unlock.\n";
 }
 
 void ofxSyphonClient::bind()
@@ -229,4 +227,11 @@ float ofxSyphonClient::getHeight() const
 	return mTex.texData.height;
 }
 
-
+ofTexture &ofxSyphonClient::getTexture()
+{
+    if (!latestImage)
+    {
+        ofLogError("ofxSyphonClient") << "getTexture() called without call to lockTexture()";
+    }
+    return mTex;
+}
