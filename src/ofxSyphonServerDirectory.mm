@@ -12,21 +12,29 @@
 
 // CFNotificationCallback implementation
 
-static void notificationHandler(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
+void handleNotification(const void *n, void *observer)
 {
-	auto directory = static_cast<ofxSyphonServerDirectory *>(observer);
-	// Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.
-	// This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.
-	if([(__bridge NSString*)name isEqualToString:SyphonServerAnnounceNotification]){
-		ofxSyphonServerDirectoryAction(directory, true);
-	} else if([(__bridge NSString*)name isEqualToString:SyphonServerRetireNotification]){
-		ofxSyphonServerDirectoryAction(directory, false);
-	}
+    // Unfortunately userInfo is null when dealing with CFNotifications from a Darwin notification center.  This is one of the few non-toll-free bridges between CF and NS.  Otherwise this class would be far less complicated.
+    auto name = static_cast<CFStringRef>(n);
+    auto directory = static_cast<ofxSyphonServerDirectory *>(observer);
+    
+    if([(__bridge NSString*)name isEqualToString:SyphonServerAnnounceNotification])
+    {
+        directory->serverAnnounced();
+    }
+    else if([(__bridge NSString*)name isEqualToString:SyphonServerUpdateNotification])
+    {
+        directory->serverUpdated();
+    }
+    else if([(__bridge NSString*)name isEqualToString:SyphonServerRetireNotification])
+    {
+        directory->serverRetired();
+    }
 }
 
-void ofxSyphonServerDirectoryAction(ofxSyphonServerDirectory *directory, bool isAnnounce)
+static void notificationHandler(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
-	directory->refresh(isAnnounce);
+    handleNotification(name, observer);
 }
 
 // ofxSyphonServerDirectory implementation
@@ -44,7 +52,8 @@ ofxSyphonServerDirectory::~ofxSyphonServerDirectory()
 	}
 }
 
-bool ofxSyphonServerDirectory::isValidIndex(int _idx){
+bool ofxSyphonServerDirectory::isValidIndex(int _idx) const
+{
     return (_idx < serverList.size());
 }
 
@@ -58,13 +67,14 @@ void ofxSyphonServerDirectory::setup ()
 	}
 }
 
-bool ofxSyphonServerDirectory::isSetup(){
+bool ofxSyphonServerDirectory::isSetup() const
+{
     return bSetup;
 }
 
 // Our workaround for the incomplete CFNotification.  There's just no love for Core Foundation anymore.
 void ofxSyphonServerDirectory::refresh(bool isAnnounce){
-    vector<ofxSyphonServerDescription> eventArgs;
+    std::vector<ofxSyphonServerDescription> eventArgs;
 
     @autoreleasepool {
         for(NSDictionary* serverDescription in [[SyphonServerDirectory sharedDirectory] servers])
@@ -90,10 +100,11 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
         }
     }
     
-    if(!isAnnounce){
-        vector<ofxSyphonServerDescription> foundServers = eventArgs;
+    if(!isAnnounce)
+    {
+       std::vector<ofxSyphonServerDescription> foundServers = eventArgs;
         eventArgs.clear();
-        for(vector<ofxSyphonServerDescription>::iterator it = serverList.begin(); it != serverList.end(); ++it){
+        for(std::vector<ofxSyphonServerDescription>::iterator it = serverList.begin(); it != serverList.end(); ++it){
             if(std::find(foundServers.begin(), foundServers.end(), ofxSyphonServerDescription(it->serverName, it->appName)) == foundServers.end()){
                 eventArgs.push_back(ofxSyphonServerDescription(it->serverName, it->appName));
                 //cout<<"Removing server: "<<it->serverName<<" appName: "<<it->appName<<"\n";
@@ -101,6 +112,12 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
         }
         serverList = foundServers;
     }
+    else if (isAnnounce && eventArgs.empty())
+    {
+        // nothing to do
+        return;
+    }
+
     ofxSyphonServerDirectoryEventArgs args;
     args.servers = eventArgs;
     if(isAnnounce){
@@ -110,7 +127,8 @@ void ofxSyphonServerDirectory::refresh(bool isAnnounce){
     }
 }
 
-bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_server){
+bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_server) const
+{
     for(auto& s: serverList){
         if(s == _server)
             return true;
@@ -119,20 +137,36 @@ bool ofxSyphonServerDirectory::serverExists(const ofxSyphonServerDescription &_s
     return false;
 }
 
-bool ofxSyphonServerDirectory::serverExists(const std::string &_serverName, const std::string &_appName){
+bool ofxSyphonServerDirectory::serverExists(const std::string &_serverName, const std::string &_appName) const
+{
     return serverExists(ofxSyphonServerDescription(_serverName, _appName));
 }
 
-const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx){
+const ofxSyphonServerDescription& ofxSyphonServerDirectory::getDescription(int _idx) const
+{
     return serverList.at(_idx);
 }
 
-const vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList(){
+const std::vector<ofxSyphonServerDescription>& ofxSyphonServerDirectory::getServerList() const
+{
     return serverList;
 }
 
-int ofxSyphonServerDirectory::size(){
-    return serverList.size();
+int ofxSyphonServerDirectory::size() const
+{
+    return (int)serverList.size();
+}
+
+void ofxSyphonServerDirectory::serverAnnounced(){
+    refresh(true);
+}
+
+void ofxSyphonServerDirectory::serverUpdated(){
+    //
+}
+
+void ofxSyphonServerDirectory::serverRetired(){
+    refresh(false);
 }
 
 void ofxSyphonServerDirectory::addObservers(){

@@ -7,8 +7,10 @@
 //
 //
 
-#include "ofMain.h"
 #include <algorithm>
+#include <string>
+#include <vector>
+#include "ofEvents.h"
 
 class ofxSyphonServerDirectory;
 
@@ -35,7 +37,7 @@ public:
 
 class ofxSyphonServerDirectoryEventArgs : public ofEventArgs {
 public:
-	vector<ofxSyphonServerDescription> servers;
+	std::vector<ofxSyphonServerDescription> servers;
 };
 
 class ofxSyphonServerDirectoryEvents {
@@ -51,28 +53,28 @@ public:
 	~ofxSyphonServerDirectory();
 	
     void setup();
-    bool isSetup();
-    int size();
+    bool isSetup() const;
+    int size() const;
 
-    bool isValidIndex(int _idx);
-    bool serverExists(const std::string &_serverName, const std::string &_appName);
-    bool serverExists(const ofxSyphonServerDescription &_server);
-    const ofxSyphonServerDescription& getDescription(int _idx);
+    bool isValidIndex(int _idx) const;
+    bool serverExists(const std::string &_serverName, const std::string &_appName) const;
+    bool serverExists(const ofxSyphonServerDescription &_server) const;
+    const ofxSyphonServerDescription& getDescription(int _idx) const;
     
-    const vector<ofxSyphonServerDescription>& getServerList();
+    const std::vector<ofxSyphonServerDescription>& getServerList() const;
 	ofxSyphonServerDirectoryEvents events;
     
     // copy and assignment are not supported
     ofxSyphonServerDirectory(const ofxSyphonServerDirectory &o) = delete;
     ofxSyphonServerDirectory &operator=(const ofxSyphonServerDirectory &o) = delete;
-    
+	
 private:
+    friend void handleNotification(const void *, void *);
 	void update(ofEventArgs& args);
     void refresh(bool isAnnounce);
 	friend void ofxSyphonServerDirectoryAction(ofxSyphonServerDirectory *directory, bool isAnnounce);
     void addObservers();
     void removeObservers();
-    
 	bool bSetup;
-    vector<ofxSyphonServerDescription> serverList;
+	std::vector<ofxSyphonServerDescription> serverList;
 };

@@ -8,13 +8,12 @@
  */
 
 #include "ofxSyphonClient.h"
+#include "ofLog.h"
 #import <Syphon/Syphon.h>
 #import "SyphonNameboundClient.h"
 
-ofxSyphonClient::ofxSyphonClient() :
-width(0), height(0), bSetup(false)
+ofxSyphonClient::ofxSyphonClient()
 {
-
 }
 
 void ofxSyphonClient::setup()
@@ -25,11 +24,13 @@ void ofxSyphonClient::setup()
 	bSetup = true;
 }
 
-bool ofxSyphonClient::isSetup(){
+bool ofxSyphonClient::isSetup() const
+{
     return bSetup;
 }
 
-void ofxSyphonClient::set(ofxSyphonServerDescription _server){
+void ofxSyphonClient::set(const ofxSyphonServerDescription &_server)
+{
     set(_server.serverName, _server.appName);
 }
 
@@ -80,15 +81,17 @@ void ofxSyphonClient::setServerName(const std::string &_serverName)
     }
 }
 
-const std::string& ofxSyphonClient::getApplicationName(){
+const std::string& ofxSyphonClient::getApplicationName() const
+{
     return appName;
 }
 
-const std::string& ofxSyphonClient::getServerName(){
+const std::string& ofxSyphonClient::getServerName() const
+{
     return serverName;
 }
 
-void ofxSyphonClient::bind()
+bool ofxSyphonClient::lockTexture()
 {
     if(bSetup)
     {
@@ -97,82 +100,138 @@ void ofxSyphonClient::bind()
            SyphonOpenGLClient *client = [(SyphonNameboundClient*)ofxSNOGet(mClient) client];
            
            ofxSNOSet(latestImage, [client newFrameImage]);
-           NSSize texSize = [(SyphonOpenGLImage*)ofxSNOGet(latestImage) textureSize];
-           
-           // we now have to manually make our ofTexture's ofTextureData a proxy to our SyphonOpenGLImage
-           mTex.setUseExternalTextureID([(SyphonOpenGLImage*)ofxSNOGet(latestImage) textureName]);
-           mTex.texData.textureTarget = GL_TEXTURE_RECTANGLE_ARB;  // Syphon always outputs rect textures.
-           mTex.texData.width = texSize.width;
-           mTex.texData.height = texSize.height;
-           mTex.texData.tex_w = texSize.width;
-           mTex.texData.tex_h = texSize.height;
-           mTex.texData.tex_t = texSize.width;
-           mTex.texData.tex_u = texSize.height;
-           mTex.texData.glInternalFormat = GL_RGBA;
-   #if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
-           mTex.texData.glType = GL_RGBA;
-           mTex.texData.pixelType = GL_UNSIGNED_BYTE;
-   #endif
-           mTex.texData.bFlipTexture = YES;
-           mTex.texData.bAllocated = YES;
-           
-           mTex.bind();
+            if (latestImage)
+            {
+                NSSize texSize = [(SyphonOpenGLImage*)ofxSNOGet(latestImage) textureSize];
+                
+                // we now have to manually make our ofTexture's ofTextureData a proxy to our SyphonOpenGLImage
+                mTex.setUseExternalTextureID([(SyphonOpenGLImage*)ofxSNOGet(latestImage) textureName]);
+                mTex.texData.textureTarget = GL_TEXTURE_RECTANGLE_ARB;  // Syphon always outputs rect textures.
+                mTex.texData.width = texSize.width;
+                mTex.texData.height = texSize.height;
+                mTex.texData.tex_w = texSize.width;
+                mTex.texData.tex_h = texSize.height;
+                mTex.texData.tex_t = texSize.width;
+                mTex.texData.tex_u = texSize.height;
+                mTex.texData.glInternalFormat = GL_RGBA;
+        #if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
+                mTex.texData.glType = GL_RGBA;
+                mTex.texData.pixelType = GL_UNSIGNED_BYTE;
+        #endif
+                mTex.texData.bFlipTexture = YES;
+                mTex.texData.bAllocated = YES;
+            }
+            else
+            {
+                mTex.clear();
+            }
         }
     }
     else
-		cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot bind.\n";
+    {
+        ofLogError("ofxSyphonClient") << "ofxSyphonClient is not setup.  Cannot lock";
+    }
+    return latestImage;
+}
+
+void ofxSyphonClient::unlockTexture()
+{
+    if(bSetup)
+    {
+        if (latestImage)
+        {
+            @autoreleasepool {
+                [(SyphonNameboundClient*)ofxSNOGet(mClient) unlockClient];
+                latestImage = ofxSyphonNSObject();
+            }
+        }
+    }
+}
+
+void ofxSyphonClient::bind()
+{
+    if (lockTexture())
+    {
+        mTex.bind();
+    }
 }
 
 void ofxSyphonClient::unbind()
 {
-    if(bSetup)
+    if (bSetup && latestImage)
     {
         mTex.unbind();
-        @autoreleasepool {
-            [(SyphonNameboundClient*)ofxSNOGet(mClient) unlockClient];
-            latestImage = ofxSyphonNSObject();
-        }
+        unlockTexture();
     }
-    else
-		cout<<"ofxSyphonClient is not setup, or is not properly connected to server.  Cannot unbind.\n";
 }
 
 void ofxSyphonClient::draw(float x, float y, float w, float h)
 {
-    this->bind();
-    
-    mTex.draw(x, y, w, h);
-    
-    this->unbind();
+    if (lockTexture())
+    {
+        mTex.bind();
+        
+        mTex.draw(x, y, w, h);
+        
+        mTex.unbind();
+        unlockTexture();
+    }
 }
 
 void ofxSyphonClient::draw(float x, float y)
 {
-	this->draw(x, y, mTex.texData.width, mTex.texData.height);
+    if (lockTexture())
+    {
+        mTex.bind();
+        
+        mTex.draw(x, y, mTex.texData.width, mTex.texData.height);
+        
+        mTex.unbind();
+        unlockTexture();
+    }
 }
 
 void ofxSyphonClient::drawSubsection(float x, float y, float w, float h, float sx, float sy, float sw, float sh)
 {
-    this->bind();
-    
-    mTex.drawSubsection(x, y, w, h, sx, sy, sw, sh);
-    
-    this->unbind();
+    if (lockTexture())
+    {
+        mTex.bind();
+        
+        mTex.drawSubsection(x, y, w, h, sx, sy, sw, sh);
+        
+        mTex.unbind();
+        unlockTexture();
+    }
 }
 
 void ofxSyphonClient::drawSubsection(float x, float y, float sx, float sy, float sw, float sh)
 {
-	this->drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
+    if (lockTexture())
+    {
+        mTex.bind();
+        
+        mTex.drawSubsection(x, y, mTex.texData.width, mTex.texData.height, sx, sy, sw, sh);
+        
+        mTex.unbind();
+        unlockTexture();
+    }
 }
 
-float ofxSyphonClient::getWidth()
+float ofxSyphonClient::getWidth() const
 {
 	return mTex.texData.width;
 }
 
-float ofxSyphonClient::getHeight()
+float ofxSyphonClient::getHeight() const
 {
 	return mTex.texData.height;
 }
 
-
+ofTexture &ofxSyphonClient::getTexture()
+{
+    if (!latestImage)
+    {
+        ofLogError("ofxSyphonClient") << "getTexture() called without call to lockTexture()";
+    }
+    return mTex;
+}

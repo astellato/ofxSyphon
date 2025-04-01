@@ -7,7 +7,6 @@
  *  http://syphon.v002.info/license.php
  */
 
-#include "ofMain.h"
 #import "ofxSyphonClient.h"
 #import "ofxSyphonServer.h"
 #import "ofxSyphonServerDirectory.h"

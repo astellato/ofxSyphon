@@ -9,6 +9,10 @@
 
 #include "ofxSyphonServer.h"
 #import <Syphon/Syphon.h>
+#import <string>
+#import "ofAppRunner.h"
+#import "ofTexture.h"
+#include "ofLog.h"
 
 ofxSyphonServer::ofxSyphonServer()
 {
@@ -32,7 +36,7 @@ void ofxSyphonServer::setName(const std::string &n)
     }
 }
 
-std::string ofxSyphonServer::getName()
+std::string ofxSyphonServer::getName() const
 {
 	std::string name;
 	if (mSyphon)
@@ -82,7 +86,7 @@ void ofxSyphonServer::publishTexture(ofTexture* inputTexture)
     }
     else
     {
-		cout<<"ofxSyphonServer texture is not properly backed.  Cannot draw.\n";
+		ofLogError("ofxSyphonServer") << "ofxSyphonServer texture is not properly backed.  Cannot draw.";
 	}
 }
 
