@@ -72,9 +72,13 @@ private:
     friend void handleNotification(const void *, void *);
 	void update(ofEventArgs& args);
     void refresh(bool isAnnounce);
-	friend void ofxSyphonServerDirectoryAction(ofxSyphonServerDirectory *directory, bool isAnnounce);
+	void serverAnnounced();
+	void serverUpdated();
+	void serverRetired();
+	
     void addObservers();
     void removeObservers();
+	
 	bool bSetup;
 	std::vector<ofxSyphonServerDescription> serverList;
 };
