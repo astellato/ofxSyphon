@@ -55,7 +55,7 @@ void ofApp::draw(){
     if(dir.isValidIndex(dirIdx))
         client.draw(0, 0);
 
-    ofDrawBitmapString("Press any key to cycle through all available Syphon servers.", ofPoint(20, 580));
+    ofDrawBitmapString("Press any key to cycle through all available Syphon servers.", 20, 580);
 }
 
 //--------------------------------------------------------------
